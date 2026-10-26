@@ -33,9 +33,22 @@ export default function Home() {
           <span className="scroll">SCROLL</span>
         </section>
 
-        <section id="concept" className="section">
+        <section id="kyojigen" className="section">
           <div className="narrow">
-            <p className="label"><b>01</b> Concept</p>
+            <p className="label"><b>01</b> About 虚次元</p>
+            <h2>虚次元（きょじげん）とは</h2>
+            <p className="big-quote">目に見える世界は、<br />ほんの一部。<br />見えない次元まで、<span className="gold">視野をひろげる</span>。</p>
+            <hr className="hair" />
+            <p>虚次元は、村主悠真さんが体系化した思想です。</p>
+            <p>わたしたちがふだん見ているのは、目に見える「実」の世界。でも世界には、目に見えない「虚」の次元もあります。数学で、目に見えない「虚数」があるからこそ、数の世界がひろがったのと同じです。</p>
+            <p>見えている世界だけで考えると、答えはせまくなります。見えない次元まで含めて世界をとらえると、思考がひろがり、視座が上がり、抽象度が上がる。虚次元は、そのための考え方です。</p>
+            <p>この場所の瞑想は、虚次元の考え方をもとにしています。</p>
+          </div>
+        </section>
+
+        <section id="concept" className="section" style={{ paddingTop: 20 }}>
+          <div className="narrow">
+            <p className="label"><b>02</b> Concept</p>
             <p className="big-quote">ふつうの瞑想は、<br />リラックスのため。<br />ここでの瞑想は、<br /><span className="gold">その先へ</span>ひろげるため。</p>
             <hr className="hair" />
             <p>思考をひろげる。視座を上げる。抽象度を上げる。</p>
@@ -45,7 +58,7 @@ export default function Home() {
 
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="wrap">
-            <p className="label"><b>02</b> Journey</p>
+            <p className="label"><b>03</b> Journey</p>
             <h2>3つの段階で、深めていく</h2>
             <div className="flow">
               <div><h3>毎日、からっぽにする</h3><p className="muted">短くてもいいので毎日。仲間と一緒に。</p></div>
@@ -57,7 +70,7 @@ export default function Home() {
 
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="wrap">
-            <p className="label"><b>03</b> Membership</p>
+            <p className="label"><b>04</b> Membership</p>
             <h2>会員になると、使えるもの</h2>
             <div className="feat">
               {features.map((f, i) => (
@@ -69,7 +82,7 @@ export default function Home() {
 
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="narrow" style={{ textAlign: "center" }}>
-            <p className="label" style={{ justifyContent: "center" }}><b>04</b> Price</p>
+            <p className="label" style={{ justifyContent: "center" }}><b>05</b> Price</p>
             <div className="card" style={{ padding: "44px 26px" }}>
               <p className="en">Monthly membership</p>
               <p className="price">{yen(SITE.monthly)}<small>／月（税込）</small></p>

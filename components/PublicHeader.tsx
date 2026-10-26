@@ -6,7 +6,7 @@ export default function PublicHeader({ dark = false }: { dark?: boolean }) {
       <div className="wrap">
         <Logo light={dark} />
         <nav className="nav">
-          <Link href="/#concept" className="pc">コンセプト</Link>
+          <Link href="/#kyojigen" className="pc">虚次元とは</Link>
           <Link href="/course">動画講座</Link>
           <Link href="/login">ログイン</Link>
         </nav>
