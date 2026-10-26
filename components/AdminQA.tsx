@@ -12,13 +12,13 @@ export async function Questions() {
   return (
     <>
       <h2 style={{ marginTop: 0 }}>質問（回答待ち {waiting}件）</h2>
-      <p className="muted">回答すると、つっちーのアイコンつきで会員ページに出ます。回答待ちの質問には、参考になりそうな資料が出ます。「AIで下書き」を押すと、資料をもとにした下書きが入ります（直してから保存）。</p>
+      <p className="muted">質問が来ると、つっちーAIが参考資料をもとにすぐ答えます。回答は直して保存できます（直すと「つっちー」の回答になります）。AIが答えられなかった質問は「回答待ち」で残るので、「AIで下書き」か手で答えてください。</p>
       {list.map((x: any, i: number) => {
         const chosen = new Set((x.refs || []).map((r: any) => r.url));
         return (
         <form action={K.answerWithRefs} className="card" key={x.id} style={{ marginBottom: 12 }}>
           <input type="hidden" name="id" value={x.id} />
-          <span className="muted">{x.t}　{x.name}さん</span> {x.answer ? <span className="tag">回答済み</span> : <span className="tag gold">回答待ち</span>}
+          <span className="muted">{x.t}　{x.name}さん</span> {x.answer ? <span className="tag">{x.by_ai ? "つっちーAIが回答" : "回答済み"}</span> : <span className="tag gold">回答待ち</span>}
           <p className="prose" style={{ fontWeight: 500 }}>Q. {x.question}</p>
           {rel[i].length > 0 && (
             <div style={{ background: "#f6f3fb", borderRadius: 10, padding: "10px 14px", margin: "8px 0 12px" }}>
@@ -26,7 +26,7 @@ export async function Questions() {
               {rel[i].map((d: any) => (
                 <details key={d.id} style={{ marginTop: 6, fontSize: 13.5 }}>
                   <summary style={{ cursor: "pointer" }}>
-                    <span className="tag" style={{ fontSize: 11 }}>{d.source === "imedia" ? "i.media" : "資料"}</span> {d.title}
+                    <span className="tag" style={{ fontSize: 11 }}>{d.source === "imedia" ? "i.media" : d.source === "kuu" ? "KUU記事" : "資料"}</span> {d.title}
                   </summary>
                   <div className="prose muted" style={{ maxHeight: 260, overflow: "auto", padding: "6px 0", fontSize: 13 }}>{d.body.slice(0, 2000)}{d.body.length > 2000 ? "…" : ""}</div>
                   {d.url && <a href={d.url} target="_blank" rel="noreferrer" style={{ fontSize: 12.5 }}>記事を開く</a>}
