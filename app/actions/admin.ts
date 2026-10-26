@@ -72,3 +72,14 @@ export async function saveLesson(fd: FormData) {
     [s(fd, "title"), String(fd.get("description") ?? ""), s(fd, "video_url"), JSON.stringify(mats), s(fd, "id")]);
   done("lessons");
 }
+export async function answerQuestion(fd: FormData) {
+  await requireAdmin();
+  await q("update meisou.questions set answer=$1, answered_at=case when $1='' then null else now() end, is_public=$2 where id=$3",
+    [String(fd.get("answer") ?? "").trim(), fd.get("is_public") === "on", s(fd, "id")]);
+  done("questions", "回答しました");
+}
+export async function deleteQuestion(fd: FormData) {
+  await requireAdmin();
+  await q("delete from meisou.questions where id=$1", [s(fd, "id")]);
+  done("questions", "削除しました");
+}

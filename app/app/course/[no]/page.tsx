@@ -30,7 +30,6 @@ export default async function Lesson({ params }: { params: Promise<{ no: string 
         {n > 1 ? <Link className="btn ghost small" href={`/app/course/${n - 1}`}>← 前の回</Link> : <span />}
         {n < (max?.m || 0) ? <Link className="btn small" href={`/app/course/${n + 1}`}>次の回 →</Link> : <span />}
       </div>
-      <p className="muted" style={{ marginTop: 20 }}>わからないことは <Link href="/app/ask">AIに質問</Link> できます。</p>
     </div>
   );
 }

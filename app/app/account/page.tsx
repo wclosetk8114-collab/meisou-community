@@ -7,7 +7,7 @@ export default async function Account({ searchParams }: { searchParams: Promise<
   const { e, ok } = await searchParams;
   const m = await requireMember();
   const links = [["/app/meditate", "今日の瞑想"], ["/app/together", "一緒に瞑想"], ["/app/media", "メディア"], ["/app/audio", "音声"],
-    ["/app/live", "月1 思想講座"], ["/app/course", "動画講座"], ["/app/ask", "AIに質問"]];
+    ["/app/live", "月1 思想講座"], ["/app/course", "動画講座"], ["/app/qa", "瞑想の質問"]];
   return (
     <div className="narrow" style={{ padding: 0 }}>
       <h1 style={{ fontSize: 28 }}>マイページ</h1>

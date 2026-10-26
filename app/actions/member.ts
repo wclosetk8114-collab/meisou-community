@@ -1,10 +1,8 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import Anthropic from "@anthropic-ai/sdk";
 import { q, one } from "@/lib/db";
 import { requireMember } from "@/lib/auth";
-import { SITE } from "@/lib/site";
 
 export async function logMeditation(minutes: number, note: string) {
   const m = await requireMember();
@@ -40,38 +38,12 @@ export async function deleteTogether(fd: FormData) {
   revalidatePath("/app/together");
 }
 
-const SYSTEM = `あなたは瞑想コミュニティ「${SITE.name}」のサポート役です。会員から瞑想についての質問や困りごとが届きます。
-このコミュニティの考え方：
-- まず毎日の瞑想で、情報でいっぱいになった頭を「からっぽ」にする。これが土台。
-- その先に、思考の拡張・視座の拡張・抽象度を上げる「拡張型」の瞑想がある。リラックスだけが目的ではない。
-- 毎日続けること、仲間と一緒にやることを大切にしている。
-答え方のルール：
-- 文字の装飾記号（** や # など）は使わない。普通の文章で書く。
-- やさしい日本語で、短く。結論を先に。3〜6文程度。必要なら箇条書き3つまで。
-- 専門用語はなるべく使わない。今日すぐできる小さな一歩を1つ添える。
-- 体や心の不調（強い不安、眠れない日が続く、痛み、過去のつらい記憶がよみがえる等）が関係しそうなときは、無理に続けないよう伝え、医療機関や専門家への相談をすすめる。診断はしない。
-- 講座の具体的な内容や、わからないことは推測で断言せず「月1回の思想講座や運営に聞いてみてください」と案内する。`;
-
-export async function askAI(fd: FormData) {
+export async function askQuestion(fd: FormData) {
   const m = await requireMember();
   const question = String(fd.get("question") || "").trim().slice(0, 1000);
-  if (!question) redirect("/app/ask");
+  if (!question) redirect("/app/qa?e=" + encodeURIComponent("質問を書いてください"));
   const cnt = await one<{ c: string }>("select count(*) c from meisou.questions where member_id=$1 and created_at > now() - interval '1 day'", [m.id]);
-  if (Number(cnt?.c || 0) >= 20) redirect("/app/ask?e=" + encodeURIComponent("今日の質問は20回までです。また明日どうぞ"));
-  let answer = "";
-  try {
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-    const res = await client.messages.create({
-      model: process.env.AI_MODEL || "claude-sonnet-4-5",
-      max_tokens: 900,
-      system: SYSTEM,
-      messages: [{ role: "user", content: question }],
-    });
-    answer = res.content.map((c: any) => (c.type === "text" ? c.text : "")).join("").trim();
-  } catch (e: any) {
-    console.error("askAI", e?.message);
-    redirect("/app/ask?e=" + encodeURIComponent("いまAIが答えられませんでした。少し時間をおいてもう一度どうぞ"));
-  }
-  await q("insert into meisou.questions (member_id, question, answer) values ($1,$2,$3)", [m.id, question, answer]);
-  redirect("/app/ask");
+  if (Number(cnt?.c || 0) >= 5) redirect("/app/qa?e=" + encodeURIComponent("質問は1日5件までです"));
+  await q("insert into meisou.questions (member_id, question, is_public) values ($1,$2,$3)", [m.id, question, fd.get("is_public") === "on"]);
+  redirect("/app/qa?ok=" + encodeURIComponent("質問を送りました。回答が来たらここに出ます"));
 }

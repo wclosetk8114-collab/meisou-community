@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Logo from "./Logo";
-export default function PublicHeader() {
+export default function PublicHeader({ dark = false }: { dark?: boolean }) {
   return (
-    <header className="hdr">
+    <header className={`hdr ${dark ? "dark" : ""}`}>
       <div className="wrap">
-        <Logo />
+        <Logo light={dark} />
         <nav className="nav">
           <Link href="/#concept" className="pc">コンセプト</Link>
           <Link href="/course">動画講座</Link>

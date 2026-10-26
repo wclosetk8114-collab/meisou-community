@@ -53,6 +53,10 @@ export default async function AppHome() {
             tg.map((x, i) => <p key={i} style={{ margin: "8px 0" }}><span className="tag gold">{x.t}</span> {x.title}</p>)}
           <span className="muted">募集を見る →</span>
         </Link>
+        <Link href="/app/qa" className="card" style={{ textDecoration: "none", color: "inherit", display: "flex", gap: 14, alignItems: "center" }}>
+          <img src="/tsuchii.jpg" alt="" width={56} height={56} style={{ borderRadius: "50%", border: "1px solid var(--gold-l)" }} />
+          <div><p className="label" style={{ marginBottom: 2 }}>Q &amp; A</p><h3 style={{ margin: 0 }}>瞑想で困ったら、つっちーに質問</h3></div>
+        </Link>
         <div className="card">
           <p className="label">New</p>
           {posts.map((p) => (
@@ -61,10 +65,6 @@ export default async function AppHome() {
             </Link>
           ))}
         </div>
-      </div>
-      <div className="card row" style={{ justifyContent: "space-between", marginTop: 18 }}>
-        <div><h3 style={{ margin: 0 }}>瞑想で困ったら</h3><span className="muted">AIがいつでも答えます</span></div>
-        <Link href="/app/ask" className="btn ghost small">AIに質問する</Link>
       </div>
     </>
   );

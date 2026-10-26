@@ -7,14 +7,14 @@ const features = [
   { t: "一緒に瞑想", d: "「この時間に一緒に」と募集できます。ひとりより、ずっと続きます。" },
   { t: "メディア", d: "瞑想と思想の記事を、会員だけが読めます。" },
   { t: "音声", d: "ガイド瞑想やお話を、耳だけで。目を閉じたまま聴けます。" },
+  { t: "つっちーに質問", d: "瞑想で困ったら質問できます。つっちーが直接答えます。" },
   { t: "月1回 思想講座", d: "オンラインでリアルタイム開催。視座と抽象度を上げる時間です。" },
-  { t: "AIに質問", d: "瞑想で困ったら、24時間いつでも聞けます。" },
 ];
 
 export default function Home() {
   return (
     <>
-      <PublicHeader />
+      <PublicHeader dark />
       <main>
         <section className="hero">
           <span className="vert l">からっぽにする</span>
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="card" style={{ padding: "44px 26px" }}>
               <p className="en">Monthly membership</p>
               <p className="price">{yen(SITE.monthly)}<small>／月（税込）</small></p>
-              <p className="muted">毎日の瞑想・一緒に瞑想・メディア・音声・月1思想講座・AI質問<br />すべて込み</p>
+              <p className="muted">毎日の瞑想・一緒に瞑想・メディア・音声・月1思想講座・質問<br />すべて込み</p>
               <div className="spacer" />
               <Link href="/signup" className="btn gold">会員になる</Link>
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
