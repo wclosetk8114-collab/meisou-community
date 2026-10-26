@@ -79,7 +79,7 @@ export async function importImedia() {
   return items.length;
 }
 
-/** AIで回答の下書きを作る（つっちーが直してから出す前提） */
+/** つっちーAIの回答を作る（会員にそのまま届く。管理画面から直せる） */
 export async function draftWithAI(question: string, docs: Doc[]) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error("ANTHROPIC_API_KEY が未設定です");
@@ -90,11 +90,19 @@ export async function draftWithAI(question: string, docs: Doc[]) {
     body: JSON.stringify({
       model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
       max_tokens: 1200,
-      system: "あなたは瞑想コミュニティ「視座の森」の運営者つっちーの回答下書きを書く係です。会員からの瞑想の質問に、つっちー本人の口調（やさしく、短い文、ふつうの言葉、専門用語は言い換える）で答えます。参考資料（虚次元・村主悠真さんの考え方の記事）の考え方を土台にしますが、資料に無いことは断定しない。資料名や「資料によると」は書かない。医療的な判断はしない。300〜500字。最後に、今日できる小さな一歩を1つ。",
-      messages: [{ role: "user", content: `参考資料:\n${ctx}\n\n会員の質問:\n${question}\n\n回答の下書き:` }],
+      system: "あなたは瞑想コミュニティ「KUU」の「つっちーAI」です。運営者つっちーの考え方と口調で、会員からの瞑想の質問に答えます（やさしく、短い文、ふつうの言葉、専門用語は言い換える）。回答はそのまま会員に届きます。参考資料（虚次元・村主悠真さんの考え方の記事）の考え方を土台にしますが、資料に無いことは断定しない。資料名や「資料によると」は書かない。医療的な判断はしない。300〜500字。最後に、今日できる小さな一歩を1つ。",
+      messages: [{ role: "user", content: `参考資料:\n${ctx}\n\n会員の質問:\n${question}\n\n回答:` }],
     }),
   });
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j?.error?.message || `AIの呼び出しに失敗しました（${r.status}）`);
   return (j.content || []).map((c: any) => c.text || "").join("").trim();
+}
+
+/** 質問にすぐ答える：参考資料を探して、つっちーAIの回答と参考記事（会員が開けるもの）を返す */
+export async function answerWithAI(question: string) {
+  const docs = await relatedDocs(question, 6);
+  const text = await draftWithAI(question, docs);
+  const refs = docs.filter((d) => d.url).slice(0, 3).map((d) => ({ title: d.title, url: d.url }));
+  return { text, refs };
 }
