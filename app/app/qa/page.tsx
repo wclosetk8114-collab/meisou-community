@@ -6,8 +6,8 @@ import Answer from "@/components/Answer";
 export default async function QA({ searchParams }: { searchParams: Promise<{ e?: string; ok?: string }> }) {
   const { e, ok } = await searchParams;
   const m = await requireMember();
-  const mine = await q<any>("select question, answer, to_char(created_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where member_id=$1 order by created_at desc limit 20", [m.id]);
-  const pub = await q<any>("select question, answer, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where is_public and answer<>'' and member_id<>$1 order by answered_at desc limit 50", [m.id]);
+  const mine = await q<any>("select question, answer, refs, to_char(created_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where member_id=$1 order by created_at desc limit 20", [m.id]);
+  const pub = await q<any>("select question, answer, refs, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where is_public and answer<>'' and member_id<>$1 order by answered_at desc limit 50", [m.id]);
   return (
     <div className="narrow" style={{ padding: 0, maxWidth: 760 }}>
       <div className="page-head">
@@ -31,7 +31,7 @@ export default async function QA({ searchParams }: { searchParams: Promise<{ e?:
           <div key={i} className="card" style={{ marginBottom: 14 }}>
             <span className="muted">{x.d}</span>
             <p className="prose" style={{ fontWeight: 500 }}>Q. {x.question}</p>
-            {x.answer ? <Answer text={x.answer} date={x.ad} /> : <span className="tag">回答待ち</span>}
+            {x.answer ? <Answer text={x.answer} date={x.ad} refs={x.refs} /> : <span className="tag">回答待ち</span>}
           </div>
         ))}
       </>}
@@ -41,7 +41,7 @@ export default async function QA({ searchParams }: { searchParams: Promise<{ e?:
       {pub.map((x: any, i: number) => (
         <div key={i} className="card" style={{ marginBottom: 14 }}>
           <p className="prose" style={{ fontWeight: 500, marginTop: 0 }}>Q. {x.question}</p>
-          <Answer text={x.answer} date={x.ad} />
+          <Answer text={x.answer} date={x.ad} refs={x.refs} />
         </div>
       ))}
     </div>
