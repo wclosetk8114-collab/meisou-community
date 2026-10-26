@@ -22,7 +22,7 @@ export default function Home() {
           <div className="wrap">
             <div className="orbit"><span /><span /><span /><div className="sat"><i /></div></div>
             <p className="en">{SITE.en}</p>
-            <h1><span>毎日、頭を</span><span>からっぽに。</span><br /><span>そこから、</span><span>視座がひらく。</span></h1>
+            <h1><span>毎日、瞑想をして</span><span>頭をからっぽにする。</span><br /><span>そこから、</span><span>視座がひらく。</span></h1>
             <p className="muted" style={{ fontSize: 15 }}>いっしょに瞑想する、会員制のコミュニティ。</p>
             <div className="spacer" />
             <div className="row" style={{ justifyContent: "center", gap: 14 }}>
