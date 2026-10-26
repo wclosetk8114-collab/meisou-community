@@ -7,5 +7,7 @@ export const SITE = {
   course: 50000, // 税別
   courseTaxIn: 55000,
   lessonsCount: 10,
+  // 会員向けLINEオープンチャット（会員ページだけに表示）
+  openchat: "https://line.me/ti/g2/O0jG0dVL1dBCTZVCQ7psSwD3I8WQjSlBpR-Qtg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default",
 };
 export const yen = (n: number) => n.toLocaleString("ja-JP") + "円";

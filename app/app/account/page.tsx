@@ -23,6 +23,7 @@ export default async function Account({ searchParams }: { searchParams: Promise<
       <div className="card" style={{ marginTop: 16 }}>
         <h3>メニュー</h3>
         {links.map(([h, t]) => <p key={h} style={{ margin: "6px 0" }}><Link href={h}>{t}</Link></p>)}
+        <p style={{ margin: "6px 0" }}><a href={SITE.openchat} target="_blank" rel="noreferrer">会員向けオープンチャット（LINE）</a></p>
       </div>
       <form action={changePassword} className="card" style={{ marginTop: 16 }}>
         <h3>パスワードを変える</h3>
