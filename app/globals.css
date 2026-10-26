@@ -178,3 +178,4 @@ header.hdr{transition:background .3s}
 .hdr.dark{background:rgba(3,7,22,.35);border-bottom:1px solid rgba(255,255,255,.08)}
 .hdr.dark .nav a{color:rgba(235,243,255,.85)}
 .hdr.dark .nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.logo b{font-family:"Cormorant Garamond","Shippori Mincho",serif;font-size:22px;letter-spacing:.32em;font-weight:500}
