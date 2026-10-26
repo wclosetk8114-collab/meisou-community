@@ -10,7 +10,7 @@ const go = (tab: string, msg: string, err = false) => redirect(`/admin?tab=${tab
 export async function answerWithRefs(fd: FormData) {
   await requireAdmin();
   const refs = fd.getAll("ref").map(String).map((v) => { try { return JSON.parse(v); } catch { return null; } }).filter(Boolean);
-  await q("update meisou.questions set answer=$1, answered_at=case when $1='' then null else now() end, is_public=$2, refs=$3 where id=$4",
+  await q("update meisou.questions set by_ai=(by_ai and answer=$1), answer=$1, answered_at=case when $1='' then null when answer=$1 then answered_at else now() end, is_public=$2, refs=$3 where id=$4",
     [String(fd.get("answer") ?? "").trim(), fd.get("is_public") === "on", JSON.stringify(refs), s(fd, "id")]);
   go("questions", "回答しました");
 }
@@ -23,7 +23,7 @@ export async function draftQuestion(fd: FormData) {
   try {
     const docs = await relatedDocs(row[0].question, 5);
     const text = await draftWithAI(row[0].question, docs);
-    await q("update meisou.questions set draft=$1 where id=$2", [text, id]);
+    await q("update meisou.questions set draft=$1 where id=$2", [text.replace(/\*\*/g, "").replace(/^#+\s*/gm, ""), id]);
   } catch (e: any) { err = String(e?.message || e); }
   if (err) go("questions", err, true);
   go("questions", "AIの下書きを入れました。直してから保存してください");
