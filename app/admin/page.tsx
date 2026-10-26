@@ -15,7 +15,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
     <div style={{ background: "#faf9fc", minHeight: "100vh" }}>
       <header className="hdr" style={{ background: "#3b3350" }}>
         <div className="wrap">
-          <span className="logo" style={{ color: "#fff" }}>管理画面<span>.</span></span>
+          <b className="mincho" style={{ color: "#fff", letterSpacing: ".14em" }}>管理画面</b>
           <nav className="nav">{TABS.map(([k, t]) => <Link key={k} href={`/admin?tab=${k}`} style={{ color: tab === k ? "#e6d3a3" : "#fff" }}>{t}</Link>)}
             <Link href="/app" style={{ color: "#fff" }}>会員サイトへ</Link></nav>
         </div>
@@ -100,7 +100,7 @@ async function Posts({ edit }: { edit?: string }) {
       <div className="card">
         <h3>投稿一覧</h3>
         <table><tbody>{list.map((p: any) => (
-          <tr key={p.id}><td>{p.kind === "audio" ? "♪" : "□"} <b>{p.title}</b><br /><span className="muted">{p.d} {p.published ? "" : "（非公開）"}</span></td>
+          <tr key={p.id}><td><b>{p.title}</b><br /><span className="muted">{p.d} {p.published ? "" : "（非公開）"}</span></td>
             <td><div className="row"><Link className="btn small ghost" href={`/admin?tab=posts&edit=${p.id}`}>直す</Link>
               <form action={A.deletePost}><input type="hidden" name="id" value={p.id} /><button className="btn small ghost">削除</button></form></div></td></tr>))}</tbody></table>
       </div>

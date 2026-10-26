@@ -33,7 +33,7 @@ export default async function Meditate() {
               {Array.from({ length: pad }).map((_, i) => <div key={"p" + i} style={{ background: "none" }} />)}
               {Array.from({ length: daysIn }).map((_, i) => {
                 const d = `${y}-${String(mo).padStart(2, "0")}-${String(i + 1).padStart(2, "0")}`;
-                return <div key={d} className={`${s.set.has(d) ? "done" : ""} ${d === s.today ? "today" : ""}`}>{i + 1}</div>;
+                return <div key={d} className={`d ${s.set.has(d) ? "done" : ""} ${d === s.today ? "today" : ""}`}>{i + 1}</div>;
               })}
             </div>
           </div>

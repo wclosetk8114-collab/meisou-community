@@ -6,52 +6,64 @@ import { q, one } from "@/lib/db";
 export default async function AppHome() {
   const m = await requireMember();
   const s = await myStats(m.id);
-  const live = await one<{ title: string; t: string }>(
-    "select title, to_char(starts_at at time zone 'Asia/Tokyo','MM月DD日 HH24:MI') t from meisou.live_sessions where starts_at > now() - interval '3 hours' order by starts_at limit 1");
+  const live = await one<{ title: string; d: string; t: string }>(
+    "select title, to_char(starts_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(starts_at at time zone 'Asia/Tokyo','HH24:MI') t from meisou.live_sessions where starts_at > now() - interval '3 hours' order by starts_at limit 1");
   const posts = await q<{ id: string; kind: string; title: string; d: string }>(
-    "select id, kind, title, to_char(created_at at time zone 'Asia/Tokyo','MM/DD') d from meisou.posts where published order by created_at desc limit 4");
+    "select id, kind, title, to_char(created_at at time zone 'Asia/Tokyo','MM.DD') d from meisou.posts where published order by created_at desc limit 4");
   const tg = await q<{ title: string; t: string; name: string }>(
-    `select t.title, to_char(t.starts_at at time zone 'Asia/Tokyo','MM/DD HH24:MI') t, mb.name from meisou.together t join meisou.members mb on mb.id=t.member_id
+    `select t.title, to_char(t.starts_at at time zone 'Asia/Tokyo','MM.DD HH24:MI') t, mb.name from meisou.together t join meisou.members mb on mb.id=t.member_id
      where t.starts_at > now() - interval '30 minutes' order by t.starts_at limit 3`);
+  const todayCount = await one<{ c: string }>("select count(distinct member_id) c from meisou.meditation_logs where day=(now() at time zone 'Asia/Tokyo')::date");
   return (
     <>
-      <p className="en">WELCOME</p>
-      <h1 style={{ fontSize: 28 }}>{m.name}さん、こんにちは</h1>
-      <div className="card" style={{ textAlign: "center", background: "linear-gradient(135deg,#fff,#f1eaf9)" }}>
-        {s.doneToday ? (
-          <><p className="mincho" style={{ fontSize: 20, margin: 0 }}>今日の瞑想、できました</p>
-            <p className="muted">{s.streak}日連続です。明日もまた。</p></>
-        ) : (
-          <><p className="mincho" style={{ fontSize: 20, margin: 0 }}>今日はまだです</p>
-            <p className="muted">{s.streak > 0 ? `${s.streak}日連続中。今日で${s.streak + 1}日目。` : "5分だけでも大丈夫です。"}</p>
-            <Link href="/app/meditate" className="btn">瞑想をはじめる</Link></>
-        )}
+      <div className="page-head">
+        <p className="en">Welcome back</p>
+        <h1 style={{ fontSize: "clamp(24px,4vw,34px)" }}>{m.name}さん</h1>
       </div>
-      <div className="spacer" />
-      <div className="grid">
-        <div className="card">
-          <span className="tag gold">月1 思想講座</span>
-          {live ? <><h3>{live.title}</h3><p className="muted">{live.t}〜</p></> : <p className="muted">次回の日程は準備中です</p>}
-          <Link href="/app/live">くわしく →</Link>
+      <div className="card today-card">
+        <div className="mini" />
+        <div>
+          <p className="label" style={{ marginBottom: 4 }}>Today</p>
+          {s.doneToday ? (
+            <><h2 style={{ margin: 0 }}>今日の瞑想、できました</h2>
+              <p className="muted">{s.streak}日連続。明日もまた、ここで。</p>
+              <Link href="/app/meditate" className="btn ghost small">記録を見る</Link></>
+          ) : (
+            <><h2 style={{ margin: 0 }}>{s.streak > 0 ? `今日で${s.streak + 1}日目` : "まずは5分から"}</h2>
+              <p className="muted">今日は{todayCount?.c || 0}人が瞑想しました。</p>
+              <Link href="/app/meditate" className="btn">瞑想をはじめる</Link></>
+          )}
         </div>
+      </div>
+      <div className="grid" style={{ marginTop: 18, gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))" }}>
+        <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.streak}</div><span className="muted">日連続</span></div>
+        <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalDays}</div><span className="muted">日やった</span></div>
+        <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalMin}</div><span className="muted">分の合計</span></div>
+      </div>
+      <div className="grid" style={{ marginTop: 18 }}>
+        <Link href="/app/live" className="card" style={{ textDecoration: "none", color: "inherit" }}>
+          <p className="label">Monthly live</p>
+          {live ? <><div className="num" style={{ fontSize: 38 }}>{live.d}<span className="muted" style={{ fontSize: 15, marginLeft: 10 }}>{live.t}〜</span></div><h3>{live.title}</h3></>
+            : <p className="muted">次回の日程は準備中です</p>}
+          <span className="muted">思想講座をひらく →</span>
+        </Link>
+        <Link href="/app/together" className="card" style={{ textDecoration: "none", color: "inherit" }}>
+          <p className="label">Together</p>
+          {tg.length === 0 ? <><h3>一緒に瞑想する人を募集</h3><p className="muted">まだ募集はありません。最初の募集をしてみませんか。</p></> :
+            tg.map((x, i) => <p key={i} style={{ margin: "8px 0" }}><span className="tag gold">{x.t}</span> {x.title}</p>)}
+          <span className="muted">募集を見る →</span>
+        </Link>
         <div className="card">
-          <span className="tag">一緒に瞑想</span>
-          {tg.length === 0 ? <p className="muted">募集はまだありません</p> :
-            tg.map((x, i) => <p key={i} style={{ margin: "6px 0" }}>{x.t}　{x.title}<br /><span className="muted">{x.name}さん</span></p>)}
-          <Link href="/app/together">募集を見る・つくる →</Link>
-        </div>
-        <div className="card">
-          <span className="tag">新着</span>
+          <p className="label">New</p>
           {posts.map((p) => (
-            <p key={p.id} style={{ margin: "6px 0" }}>
-              <Link href={p.kind === "audio" ? "/app/audio" : `/app/media/${p.id}`}>{p.kind === "audio" ? "♪ " : ""}{p.title}</Link> <span className="muted">{p.d}</span>
-            </p>
+            <Link key={p.id} className="list-link" href={p.kind === "audio" ? "/app/audio" : `/app/media/${p.id}`}>
+              <span><span className="muted" style={{ marginRight: 10 }}>{p.d}</span>{p.kind === "audio" && <span className="tag" style={{ marginRight: 6 }}>音声</span>}{p.title}</span>
+            </Link>
           ))}
         </div>
       </div>
-      <div className="spacer" />
-      <div className="card row" style={{ justifyContent: "space-between" }}>
-        <div><b>瞑想で困ったら</b><br /><span className="muted">AIがいつでも答えます</span></div>
+      <div className="card row" style={{ justifyContent: "space-between", marginTop: 18 }}>
+        <div><h3 style={{ margin: 0 }}>瞑想で困ったら</h3><span className="muted">AIがいつでも答えます</span></div>
         <Link href="/app/ask" className="btn ghost small">AIに質問する</Link>
       </div>
     </>

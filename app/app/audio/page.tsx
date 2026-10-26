@@ -16,7 +16,7 @@ export default async function Audio() {
         return (
           <div className="card" key={p.id} style={{ marginBottom: 14 }}>
             <span className="muted">{p.d}</span>
-            <h3>♪ {p.title}</h3>
+            <h3>{p.title}</h3>
             {a && (a.type === "audio" ? <audio controls preload="none" src={a.src} style={{ width: "100%" }} /> :
               <iframe src={a.src} style={{ width: "100%", height: 140, border: 0, borderRadius: 12 }} allow="autoplay" />)}
             {p.body && <p className="prose muted">{p.body}</p>}

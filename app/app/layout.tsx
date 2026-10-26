@@ -1,36 +1,35 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import Logo from "@/components/Logo";
+import { IHome, IMed, IBook, IAsk, IMore } from "@/components/Icons";
 import { requireMember } from "@/lib/auth";
-import { logout } from "../actions/auth";
 
 export const dynamic = "force-dynamic";
 
-const NAV = [
-  ["/app", "ホーム", "◎"], ["/app/meditate", "瞑想", "○"], ["/app/together", "一緒に", "∞"],
-  ["/app/media", "メディア", "□"], ["/app/audio", "音声", "♪"], ["/app/live", "思想講座", "☽"],
-  ["/app/course", "動画講座", "▷"], ["/app/ask", "AI質問", "?"],
-];
+const NAV = [["/app/meditate", "瞑想"], ["/app/together", "一緒に"], ["/app/media", "メディア"], ["/app/audio", "音声"],
+  ["/app/live", "思想講座"], ["/app/course", "動画講座"], ["/app/ask", "AI質問"]];
 
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
   const m = await requireMember();
   return (
-    <div className="has-tabs-wrap">
+    <>
       <header className="hdr">
         <div className="wrap">
-          <Link href="/app" className="logo">{SITE.name}<span>.</span></Link>
+          <Logo href="/app" />
           <nav className="nav member">
-            {NAV.slice(1).map(([h, t]) => <Link key={h} href={h}>{t}</Link>)}
+            {NAV.map(([h, t]) => <Link key={h} href={h}>{t}</Link>)}
             {m.is_admin && <Link href="/admin" style={{ color: "var(--gold)" }}>管理</Link>}
             <Link href="/app/account">マイページ</Link>
           </nav>
-          <div className="row" style={{ display: "none" }}><form action={logout}><button>ログアウト</button></form></div>
         </div>
       </header>
-      <main className="wrap" style={{ paddingTop: 24, paddingBottom: 90 }}>{children}</main>
+      <main className="wrap" style={{ paddingTop: 28, paddingBottom: 110 }}>{children}</main>
       <nav className="tabs">
-        {[NAV[0], NAV[1], NAV[3], NAV[7]].map(([h, t, i]) => <Link key={h} href={h}><b>{i}</b>{t}</Link>)}
-        <Link href="/app/account"><b>≡</b>その他</Link>
+        <Link href="/app"><IHome />ホーム</Link>
+        <Link href="/app/meditate"><IMed />瞑想</Link>
+        <Link href="/app/media"><IBook />メディア</Link>
+        <Link href="/app/ask"><IAsk />AI質問</Link>
+        <Link href="/app/account"><IMore />その他</Link>
       </nav>
-    </div>
+    </>
   );
 }

@@ -26,7 +26,7 @@ export default async function CourseHome() {
               <p className="muted" style={{ margin: 0 }}>{l.description}</p>
             </Link>
           ) : (
-            <div key={l.no} className="card lock"><span className="tag">第{l.no}回</span> 🔒<h3>{l.title.replace(/^第\d+回/, "").trim()}</h3></div>
+            <div key={l.no} className="card lock"><span className="tag">第{l.no}回</span> <span className="tag">受講者のみ</span><h3>{l.title.replace(/^第\d+回/, "").trim()}</h3></div>
           )
         ))}
       </div>

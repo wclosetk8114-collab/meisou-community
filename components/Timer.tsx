@@ -19,6 +19,7 @@ export default function Timer() {
   const [state, setState] = useState<"idle" | "run" | "pause" | "done">("idle");
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
+  const [phase, setPhase] = useState("");
   const ctx = useRef<AudioContext | null>(null);
   const endAt = useRef(0);
 
@@ -27,6 +28,8 @@ export default function Timer() {
     const t = setInterval(() => {
       const s = Math.max(0, Math.round((endAt.current - Date.now()) / 1000));
       setLeft(s);
+      const el = (Date.now() / 1000) % 10;
+      setPhase(el < 5 ? "吸って" : "吐いて");
       if (s <= 0) { setState("done"); if (ctx.current) bell(ctx.current); }
     }, 250);
     return () => clearInterval(t);
@@ -48,8 +51,9 @@ export default function Timer() {
 
   return (
     <div className="card timer">
-      <p className="en">TODAY&apos;S MEDITATION</p>
+      <p className="en">Today&apos;s meditation</p>
       <div className={`orb ${state === "run" ? "run" : ""}`} />
+      <div className="breath">{state === "run" ? phase : ""}</div>
       <div className="big">{mm}:{ss}</div>
       {state === "idle" && (
         <>
