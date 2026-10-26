@@ -2,7 +2,7 @@
 export const SITE = {
   name: "KUU",
   en: "KUU — MEDITATION COMMUNITY",
-  tagline: "毎日、瞑想をして頭をからっぽにする。そこから視座がひらく。",
+  tagline: "毎日、瞑想で静けさにもどる。そこから、視座がひらく。",
   monthly: 3980, // 税込・月額
   course: 50000, // 税別
   courseTaxIn: 55000,
@@ -15,6 +15,7 @@ export const SITE = {
   payLink: "",
   // KUU公式LINE（運営への連絡窓口）
   line: "https://lin.ee/NlWRY0V",
+  url: "https://meisou-community.vercel.app",
 };
 export const joinHref = () => SITE.payLink || "/signup";
 export const yen = (n: number) => n.toLocaleString("ja-JP") + "円";

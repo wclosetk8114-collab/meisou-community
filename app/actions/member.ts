@@ -56,3 +56,20 @@ export async function askQuestion(fd: FormData) {
   } catch {}
   redirect("/app/qa?ok=" + encodeURIComponent(answered ? "つっちーAIが答えました" : "質問を送りました。回答が来たらここに出ます"));
 }
+
+export async function createLineCode() {
+  const m = await requireMember();
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  await q("update meisou.members set line_link_code=$1, line_code_expires=now() + interval '30 minutes' where id=$2", [code, m.id]);
+  redirect("/app/account#line");
+}
+export async function unlinkLine() {
+  const m = await requireMember();
+  await q("update meisou.members set line_user_id=null, line_link_code=null where id=$1", [m.id]);
+  redirect("/app/account?ok=" + encodeURIComponent("LINEとのつながりを解除しました") + "#line");
+}
+export async function toggleRemind() {
+  const m = await requireMember();
+  await q("update meisou.members set line_remind = not line_remind where id=$1", [m.id]);
+  redirect("/app/account#line");
+}

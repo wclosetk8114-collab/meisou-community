@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireMember } from "@/lib/auth";
 import { logout, cancelMembership, changePassword } from "@/app/actions/auth";
 import { SITE, yen } from "@/lib/site";
+import LineLink from "@/components/LineLink";
 
 export default async function Account({ searchParams }: { searchParams: Promise<{ e?: string; ok?: string }> }) {
   const { e, ok } = await searchParams;
@@ -25,6 +26,7 @@ export default async function Account({ searchParams }: { searchParams: Promise<
         {links.map(([h, t]) => <p key={h} style={{ margin: "6px 0" }}><Link href={h}>{t}</Link></p>)}
         <p style={{ margin: "6px 0" }}><a href={SITE.openchat} target="_blank" rel="noreferrer">会員向けオープンチャット（LINE）</a></p>
       </div>
+      <LineLink memberId={m.id} />
       <form action={changePassword} className="card" style={{ marginTop: 16 }}>
         <h3>パスワードを変える</h3>
         <label>今のパスワード</label><input name="current" type="password" required />

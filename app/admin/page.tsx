@@ -97,6 +97,7 @@ async function Posts({ edit }: { edit?: string }) {
         <input name="media_url" defaultValue={cur?.media_url} placeholder="https://" />
         <label>本文（記事のとき。音声なら説明）</label><textarea name="body" defaultValue={cur?.body} style={{ minHeight: 220 }} />
         <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="published" defaultChecked={cur ? cur.published : true} style={{ width: "auto" }} /> 公開する</label>
+        <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="notify" defaultChecked={!cur} style={{ width: "auto" }} /> 保存したら、会員にLINEで知らせる</label>
         <div className="spacer" /><button className="btn small">保存する</button> {cur && <Link href="/admin?tab=posts" className="muted">新規にもどる</Link>}
       </form>
       <div className="card">

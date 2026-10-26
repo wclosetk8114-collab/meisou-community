@@ -21,6 +21,11 @@ export default async function Start() {
         <p className="muted">お知らせ・一緒に瞑想の声かけ・思想講座の案内はここで流れます。表示名は「{m.name}」にしてください。</p>
         <a href={SITE.openchat} target="_blank" rel="noreferrer" className="btn noarrow" style={{ background: "#06c755", borderColor: "#06c755", width: "100%" }}>LINEで参加する</a>
       </div>
+      <div className="card" style={{ marginTop: 16 }}>
+        <p className="label"><b>STEP 3</b> KUU公式LINEとつなぐ（おすすめ）</p>
+        <p className="muted">毎日のお知らせ・瞑想の記録・質問・新しい記事がLINEで届きます。</p>
+        <Link href="/app/account#line" className="btn small ghost">つなぎ方を見る</Link>
+      </div>
       <div style={{ textAlign: "center", marginTop: 28 }}>
         <Link href="/app/meditate" className="btn">さっそく今日の瞑想をする</Link>
         <p><Link href="/app" className="muted">ホームへ</Link></p>
