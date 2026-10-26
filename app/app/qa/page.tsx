@@ -3,17 +3,19 @@ import { q } from "@/lib/db";
 import { askQuestion } from "@/app/actions/member";
 import Answer from "@/components/Answer";
 
+export const maxDuration = 60;
+
 export default async function QA({ searchParams }: { searchParams: Promise<{ e?: string; ok?: string }> }) {
   const { e, ok } = await searchParams;
   const m = await requireMember();
-  const mine = await q<any>("select question, answer, refs, to_char(created_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where member_id=$1 order by created_at desc limit 20", [m.id]);
-  const pub = await q<any>("select question, answer, refs, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where is_public and answer<>'' and member_id<>$1 order by answered_at desc limit 50", [m.id]);
+  const mine = await q<any>("select question, answer, refs, by_ai, to_char(created_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where member_id=$1 order by created_at desc limit 20", [m.id]);
+  const pub = await q<any>("select question, answer, refs, by_ai, to_char(answered_at at time zone 'Asia/Tokyo','MM.DD') ad from meisou.questions where is_public and answer<>'' and member_id<>$1 order by answered_at desc limit 50", [m.id]);
   return (
     <div className="narrow" style={{ padding: 0, maxWidth: 760 }}>
       <div className="page-head">
         <p className="en">Q &amp; A</p>
         <h1 style={{ fontSize: "clamp(24px,4vw,32px)" }}>瞑想の質問</h1>
-        <p className="muted">瞑想していて困ったこと、わからないことを送ってください。つっちーが直接答えます。</p>
+        <p className="muted">瞑想していて困ったこと、わからないことを送ってください。つっちーAIが、すぐに答えます。</p>
       </div>
       <form action={askQuestion} className="card">
         {e && <p className="err">{e}</p>}{ok && <p className="ok">{ok}</p>}
@@ -23,6 +25,7 @@ export default async function QA({ searchParams }: { searchParams: Promise<{ e?:
         </label>
         <div className="spacer" />
         <button className="btn">質問を送る</button>
+        <p className="muted" style={{ fontSize: 12.5, marginTop: 10 }}>送ると、つっちーAIが答えるまで少し（10〜20秒）かかります。</p>
       </form>
 
       {mine.length > 0 && <>
@@ -31,7 +34,7 @@ export default async function QA({ searchParams }: { searchParams: Promise<{ e?:
           <div key={i} className="card" style={{ marginBottom: 14 }}>
             <span className="muted">{x.d}</span>
             <p className="prose" style={{ fontWeight: 500 }}>Q. {x.question}</p>
-            {x.answer ? <Answer text={x.answer} date={x.ad} refs={x.refs} /> : <span className="tag">回答待ち</span>}
+            {x.answer ? <Answer text={x.answer} date={x.ad} refs={x.refs} ai={x.by_ai} /> : <span className="tag">回答待ち</span>}
           </div>
         ))}
       </>}
@@ -41,7 +44,7 @@ export default async function QA({ searchParams }: { searchParams: Promise<{ e?:
       {pub.map((x: any, i: number) => (
         <div key={i} className="card" style={{ marginBottom: 14 }}>
           <p className="prose" style={{ fontWeight: 500, marginTop: 0 }}>Q. {x.question}</p>
-          <Answer text={x.answer} date={x.ad} refs={x.refs} />
+          <Answer text={x.answer} date={x.ad} refs={x.refs} ai={x.by_ai} />
         </div>
       ))}
     </div>
