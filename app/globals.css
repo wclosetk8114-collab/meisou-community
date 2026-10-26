@@ -179,3 +179,7 @@ header.hdr{transition:background .3s}
 .hdr.dark .nav a{color:rgba(235,243,255,.85)}
 .hdr.dark .nav a:hover{background:rgba(255,255,255,.1);color:#fff}
 .logo b{font-family:"Cormorant Garamond","Shippori Mincho",serif;font-size:22px;letter-spacing:.32em;font-weight:500}
+
+.plans .price small{display:block;margin:6px 0 0;font-size:13px}
+.plans .card{display:flex;flex-direction:column}
+.plans .card .btn{margin-top:auto;align-self:flex-start}

@@ -12,15 +12,17 @@ const features = [
   { t: "LINEでつながる", d: "毎晩のお知らせ、「瞑想した」で記録、質問もLINEから。続ける仕組みが手のひらに。" },
 ];
 
-const compare: [string, boolean, boolean][] = [
-  ["イベント・最新情報のお知らせ", true, true],
-  ["毎日の瞑想タイマーと記録", false, true],
-  ["一緒に瞑想する仲間・募集", false, true],
-  ["会員だけのメディア・音声", false, true],
-  ["月1回 思想講座（ライブ＋録画）", false, true],
-  ["つっちーAIに質問", false, true],
-  ["LINEで毎日のお知らせ・記録", false, true],
-  ["会員向けオープンチャット", false, true],
+const compare: [string, boolean, boolean, boolean][] = [
+  ["イベント・最新情報のお知らせ", true, true, true],
+  ["毎日の瞑想タイマーと記録", false, true, true],
+  ["一緒に瞑想する仲間・募集", false, true, true],
+  ["会員だけのメディア・音声", false, true, true],
+  ["月1回 思想講座（ライブ＋録画）", false, true, true],
+  ["つっちーAIに質問", false, true, true],
+  ["LINEで毎日のお知らせ・記録", false, true, true],
+  ["会員向けオープンチャット", false, true, true],
+  ["瞑想 動画講座（全10回）", false, false, true],
+  ["つっちーと月2回のオンライン伴走", false, false, true],
 ];
 
 const changes = [
@@ -135,9 +137,9 @@ export default function Home() {
 
         <section id="plans" className="section" style={{ paddingTop: 20 }}>
           <div className="wrap">
-            <p className="label"><b>07</b> Free or Member</p>
-            <h2>無料と会員のちがい</h2>
-            <div className="grid" style={{ alignItems: "stretch" }}>
+            <p className="label"><b>07</b> Plans</p>
+            <h2>3つのプラン</h2>
+            <div className="grid plans" style={{ alignItems: "stretch" }}>
               <div className="card flat">
                 <p className="en">Free</p>
                 <h3 style={{ margin: "4px 0" }}>無料オープンチャット</h3>
@@ -152,15 +154,23 @@ export default function Home() {
                 <p className="muted">1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。</p>
                 <a href={joinHref()} className="btn">会員になる</a>
               </div>
+              <div className="card" style={{ background: "linear-gradient(160deg,#0f1c3a,#24427e)", color: "#fff", border: "1px solid rgba(255,255,255,.2)" }}>
+                <p className="en" style={{ color: "#bcd8f7" }}>Accompany</p>
+                <h3 style={{ margin: "4px 0", color: "#fff" }}>伴走プラン</h3>
+                <p className="price" style={{ fontSize: 34, color: "#fff" }}>{yen(SITE.bansou)}<small style={{ color: "rgba(230,240,255,.8)" }}>／{SITE.bansouMonths}ヶ月（税別）</small></p>
+                <p style={{ color: "rgba(230,240,255,.85)", fontSize: 13.5 }}>つっちーと月{SITE.bansouPerMonth}回のオンラインで、本気で変わりたい人へ。会員の機能と動画講座もすべて込み。</p>
+                <a href="#bansou" className="btn" style={{ background: "#fff", color: "#0f1c3a", borderColor: "#fff" }}>くわしく見る</a>
+              </div>
             </div>
             <div className="card" style={{ marginTop: 18, overflowX: "auto" }}>
               <table>
-                <thead><tr><th></th><th style={{ textAlign: "center" }}>無料</th><th style={{ textAlign: "center" }}>会員</th></tr></thead>
+                <thead><tr><th></th><th style={{ textAlign: "center" }}>無料</th><th style={{ textAlign: "center" }}>会員</th><th style={{ textAlign: "center" }}>伴走</th></tr></thead>
                 <tbody>
-                  {compare.map(([t, f, m]) => (
+                  {compare.map(([t, f, m, b]) => (
                     <tr key={t}><td>{t}</td>
                       <td style={{ textAlign: "center", fontSize: 18, color: f ? "var(--gold)" : "var(--sub)" }}>{f ? "○" : "—"}</td>
-                      <td style={{ textAlign: "center", fontSize: 18, color: m ? "var(--gold)" : "var(--sub)" }}>{m ? "○" : "—"}</td></tr>
+                      <td style={{ textAlign: "center", fontSize: 18, color: m ? "var(--gold)" : "var(--sub)" }}>{m ? "○" : "—"}</td>
+                      <td style={{ textAlign: "center", fontSize: 18, color: b ? "var(--gold)" : "var(--sub)" }}>{b ? "○" : "—"}</td></tr>
                   ))}
                 </tbody>
               </table>
@@ -180,6 +190,33 @@ export default function Home() {
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
             </div>
             <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）</Link></p>
+          </div>
+        </section>
+
+        <section id="bansou" className="section" style={{ paddingTop: 20 }}>
+          <div className="narrow">
+            <p className="label"><b>09</b> Accompany</p>
+            <h2>伴走プラン</h2>
+            <p>ひとりで続けるより、確実に変わりたい人へ。<br />{SITE.bansouMonths}ヶ月間、つっちーが月{SITE.bansouPerMonth}回オンラインでとなりを走ります。</p>
+            <div className="flow" style={{ marginTop: 20, gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))" }}>
+              <div><h3>手放す</h3><p className="muted">いま頭の中にあるものを一緒に整理。あなたに合う瞑想のやり方を決めます。</p></div>
+              <div><h3>入れる</h3><p className="muted">動画講座と思想講座で、新しい考え方と価値基準を入れていきます。</p></div>
+              <div><h3>変わる</h3><p className="muted">毎回のオンラインで、日々の選び方・行動がどう変わったかを一緒に確かめます。</p></div>
+            </div>
+            <div className="card" style={{ marginTop: 20 }}>
+              <table>
+                <tbody>
+                  <tr><th>期間</th><td>{SITE.bansouMonths}ヶ月</td></tr>
+                  <tr><th>オンライン</th><td>月{SITE.bansouPerMonth}回 × {SITE.bansouMonths}ヶ月（計{SITE.bansouPerMonth * SITE.bansouMonths}回）</td></tr>
+                  <tr><th>込みのもの</th><td>KUU会員のすべての機能／瞑想 動画講座（全{SITE.lessonsCount}回・資料つき）</td></tr>
+                  <tr><th>料金</th><td><b>{yen(SITE.bansou)}</b>（税別）／税込 {yen(SITE.bansouTaxIn)}</td></tr>
+                </tbody>
+              </table>
+              <div style={{ textAlign: "center", marginTop: 20 }}>
+                <a href={SITE.line} target="_blank" rel="noreferrer" className="btn gold">KUU公式LINEで相談する</a>
+                <p className="muted" style={{ marginTop: 10, fontSize: 12.5 }}>お申し込み・ご相談は、LINEから気軽にどうぞ。</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

@@ -7,6 +7,11 @@ export const SITE = {
   course: 50000, // 税別
   courseTaxIn: 55000,
   lessonsCount: 10,
+  // 伴走プラン（3ヶ月・月2回オンライン・会員機能と動画講座込み）
+  bansou: 100000, // 税別
+  bansouTaxIn: 110000,
+  bansouMonths: 3,
+  bansouPerMonth: 2,
   // 会員向けLINEオープンチャット（会員ページだけに表示）
   openchat: "https://line.me/ti/g2/O0jG0dVL1dBCTZVCQ7psSwD3I8WQjSlBpR-Qtg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default",
   // 無料のLINEオープンチャット（イベント・最新情報。だれでも入れる）
