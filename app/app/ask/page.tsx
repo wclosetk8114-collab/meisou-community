@@ -23,7 +23,7 @@ export default async function Ask({ searchParams }: { searchParams: Promise<{ e?
         <div key={i} className="card" style={{ marginBottom: 14 }}>
           <span className="muted">{x.t}</span>
           <p style={{ fontWeight: 700 }} className="prose">Q. {x.question}</p>
-          <div className="answer prose">{x.answer}</div>
+          <div className="answer prose">{String(x.answer).replace(/\*\*/g, "").replace(/^#+\s*/gm, "")}</div>
         </div>
       ))}
       <p className="muted">※AIの答えは参考です。体や心の不調があるときは、無理をせず専門家に相談してください。</p>

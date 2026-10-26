@@ -166,7 +166,7 @@ async function Questions() {
         <div className="card" key={x.id} style={{ marginBottom: 12 }}>
           <span className="muted">{x.t}　{x.name}さん</span>
           <p className="prose" style={{ fontWeight: 700 }}>Q. {x.question}</p>
-          <div className="answer prose">{x.answer}</div>
+          <div className="answer prose">{String(x.answer).replace(/\*\*/g, "").replace(/^#+\s*/gm, "")}</div>
         </div>
       ))}
     </>

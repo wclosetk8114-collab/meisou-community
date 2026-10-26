@@ -47,7 +47,7 @@ export default function Timer() {
     setSaved(true); setNote("");
   };
   const mm = String(Math.floor(left / 60)).padStart(2, "0"), ss = String(left % 60).padStart(2, "0");
-  const doneMin = state === "done" ? len : Math.round((len * 60 - left) / 60);
+  const doneMin = Math.max(1, Math.round((len * 60 - left) / 60));
 
   return (
     <div className="card timer">
