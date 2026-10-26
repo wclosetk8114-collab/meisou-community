@@ -77,12 +77,13 @@ export default function Home() {
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="wrap">
             <p className="label"><b>03</b> Journey</p>
-            <h2>3つの段階で、深めていく</h2>
+            <h2>静けさで空けて、新しい視点を入れて、行動が変わる。</h2>
             <div className="flow">
-              <div><h3>毎日、からっぽにする</h3><p className="muted">短くてもいいので毎日。仲間と一緒に。</p></div>
-              <div><h3>月1回、視座をひらく</h3><p className="muted">思想講座で、ものの見方をひろげる。</p></div>
-              <div><h3>深めたい人は、動画講座へ</h3><p className="muted">全{SITE.lessonsCount}回で、体系的に学ぶ。</p></div>
+              <div><h3 style={{ fontSize: 26 }}>手放す</h3><p className="muted">毎日の瞑想で、余計な思考を取りのぞく。</p></div>
+              <div><h3 style={{ fontSize: 26 }}>入れる</h3><p className="muted">月1回の思想講座で、新しい考え方と価値基準を入れる。</p></div>
+              <div><h3 style={{ fontSize: 26 }}>変わる</h3><p className="muted">仲間と続けるうちに、選ぶこと・やることが変わっていく。</p></div>
             </div>
+            <p className="muted" style={{ marginTop: 14 }}>もっと深めたい人には、全{SITE.lessonsCount}回の動画講座もあります。</p>
           </div>
         </section>
 
