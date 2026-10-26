@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PublicHeader from "@/components/PublicHeader";
 import { login } from "../actions/auth";
+import { joinHref } from "@/lib/site";
 
 export default async function Login({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const { e } = await searchParams;
@@ -21,7 +22,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
             <button className="btn" style={{ width: "100%" }}>ログインする</button>
           </form>
           <p className="muted" style={{ marginTop: 18 }}>
-            はじめての方は <Link href="/signup">会員登録</Link>　／　パスワードを忘れたら運営へご連絡ください
+            はじめての方は <a href={joinHref()}>会員になる</a>　／　パスワードを忘れたら運営へご連絡ください
           </p>
         </div>
       </main>

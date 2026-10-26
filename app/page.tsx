@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PublicHeader from "@/components/PublicHeader";
-import { SITE, yen } from "@/lib/site";
+import { SITE, yen, joinHref } from "@/lib/site";
 
 const features = [
   { t: "毎日の瞑想", d: "タイマーを押すだけ。終わったら記録が残り、続いた日数が見えます。" },
@@ -26,7 +26,7 @@ export default function Home() {
             <p className="muted" style={{ fontSize: 15 }}>いっしょに瞑想する、会員制のコミュニティ。</p>
             <div className="spacer" />
             <div className="row" style={{ justifyContent: "center", gap: 14 }}>
-              <Link href="/signup" className="btn">会員になる</Link>
+              <a href={joinHref()} className="btn">会員になる</a>
               <Link href="/login" className="btn ghost noarrow">ログイン</Link>
             </div>
           </div>
@@ -81,6 +81,19 @@ export default function Home() {
         </section>
 
         <section className="section" style={{ paddingTop: 20 }}>
+          <div className="narrow">
+            <div className="card row" style={{ justifyContent: "space-between", gap: 18 }}>
+              <div>
+                <p className="label" style={{ marginBottom: 4 }}>Free open chat</p>
+                <h3 style={{ margin: 0 }}>まずは無料のオープンチャットへ</h3>
+                <p className="muted" style={{ margin: "4px 0 0" }}>イベントや最新情報をお届けします。会員でなくても入れます。</p>
+              </div>
+              <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>LINEで参加する</a>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" style={{ paddingTop: 20 }}>
           <div className="narrow" style={{ textAlign: "center" }}>
             <p className="label" style={{ justifyContent: "center" }}><b>05</b> Price</p>
             <div className="card" style={{ padding: "44px 26px" }}>
@@ -88,14 +101,14 @@ export default function Home() {
               <p className="price">{yen(SITE.monthly)}<small>／月（税込）</small></p>
               <p className="muted">毎日の瞑想・一緒に瞑想・メディア・音声・月1思想講座・質問<br />すべて込み</p>
               <div className="spacer" />
-              <Link href="/signup" className="btn gold">会員になる</Link>
+              <a href={joinHref()} className="btn gold">会員になる</a>
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
             </div>
             <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）</Link></p>
           </div>
         </section>
       </main>
-      <footer>© {SITE.en}</footer>
+      <footer><a href={SITE.freeOpenchat} target="_blank" rel="noreferrer">無料オープンチャット（イベント・最新情報）</a><br /><br />© {SITE.en}</footer>
     </>
   );
 }
