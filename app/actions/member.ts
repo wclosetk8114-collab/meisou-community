@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Anthropic from "@anthropic-ai/sdk";
 import { q, one } from "@/lib/db";
 import { requireMember } from "@/lib/auth";
+import { SITE } from "@/lib/site";
 
 export async function logMeditation(minutes: number, note: string) {
   const m = await requireMember();
@@ -39,7 +40,7 @@ export async function deleteTogether(fd: FormData) {
   revalidatePath("/app/together");
 }
 
-const SYSTEM = `あなたは瞑想コミュニティ「ひらく瞑想室」のサポート役です。会員から瞑想についての質問や困りごとが届きます。
+const SYSTEM = `あなたは瞑想コミュニティ「${SITE.name}」のサポート役です。会員から瞑想についての質問や困りごとが届きます。
 このコミュニティの考え方：
 - まず毎日の瞑想で、情報でいっぱいになった頭を「からっぽ」にする。これが土台。
 - その先に、思考の拡張・視座の拡張・抽象度を上げる「拡張型」の瞑想がある。リラックスだけが目的ではない。
