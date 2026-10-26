@@ -55,7 +55,7 @@ export default function Home() {
           <div className="narrow">
             <p className="label"><b>01</b> About 虚次元</p>
             <h2>虚次元（きょじげん）とは</h2>
-            <p className="big-quote">目に見える世界は、<br />ほんの一部。<br />見えない次元まで、<span className="gold">視野をひろげる</span>。</p>
+            <p className="big-quote">目に見える世界は、<br />ほんの一部。<br />見えない次元まで、<span className="gold">視座をひろげる</span>。</p>
             <hr className="hair" />
             <p>虚次元は、村主悠真さんが提唱している「世界のとらえ方」です。</p>
             <p>わたしたちがふだん見ているのは、目に見える「実」の世界。でも世界には、目に見えない「虚」の次元もあります。数学で、目に見えない「虚数」があるからこそ、数の世界がひろがったのと同じです。</p>
