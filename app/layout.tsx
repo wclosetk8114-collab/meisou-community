@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `${SITE.name}｜毎日瞑想コミュニティ`,
-  description: `毎日の瞑想で頭をからっぽにして、視座をひらく会員制コミュニティ。月額${SITE.monthly.toLocaleString()}円（税込）。`,
+  description: `毎日の瞑想で静けさにもどり、視座をひらく会員制コミュニティ。期間限定 月額${SITE.monthly.toLocaleString()}円（税込）。`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

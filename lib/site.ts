@@ -3,7 +3,7 @@ export const SITE = {
   name: "KUU",
   en: "KUU — MEDITATION COMMUNITY",
   tagline: "毎日、瞑想で静けさにもどる。そこから、視座がひらく。",
-  monthly: 3980, // 税込・月額
+  monthly: 3980, // 税込・月額（期間限定価格）
   course: 50000, // 税別
   courseTaxIn: 55000,
   lessonsCount: 10,
