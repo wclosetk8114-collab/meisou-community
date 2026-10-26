@@ -15,7 +15,9 @@ const STOP = new Set(["ので", "ます", "です", "した", "して", "こと"
 export async function relatedDocs(question: string, n = 5): Promise<(Doc & { score: number })[]> {
   const qg = [...grams(question).keys()].filter((g) => !STOP.has(g));
   if (!qg.length) return [];
-  const docs = await q<Doc>("select id, source, title, body, url from meisou.knowledge");
+  // 参考資料 ＋ KUUメディアに公開中の記事（会員が開けるので回答の参考記事にも使える）
+  const docs = await q<Doc>(`select id::text, source, title, body, url from meisou.knowledge
+    union all select id::text, 'kuu', title, body, '/app/media/' || id from meisou.posts where kind='article' and published`);
   const scored = docs.map((d) => {
     const tg = grams(d.title), bg = grams(d.body);
     let s = 0;
