@@ -3,10 +3,11 @@ import { requireAdmin } from "@/lib/auth";
 import { q } from "@/lib/db";
 import { SITE, yen } from "@/lib/site";
 import * as A from "@/app/actions/admin";
+import { Questions, Knowledge } from "@/components/AdminQA";
 
 export const dynamic = "force-dynamic";
 
-const TABS = [["members", "会員"], ["posts", "記事・音声"], ["live", "思想講座"], ["lessons", "動画講座"], ["questions", "質問"]];
+const TABS = [["members", "会員"], ["posts", "記事・音声"], ["live", "思想講座"], ["lessons", "動画講座"], ["questions", "質問"], ["knowledge", "参考資料"]];
 
 export default async function Admin({ searchParams }: { searchParams: Promise<{ tab?: string; e?: string; ok?: string; edit?: string }> }) {
   await requireAdmin();
@@ -27,6 +28,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
         {tab === "live" && <Live edit={edit} />}
         {tab === "lessons" && <Lessons />}
         {tab === "questions" && <Questions />}
+        {tab === "knowledge" && <Knowledge />}
       </main>
     </div>
   );
@@ -150,31 +152,6 @@ async function Lessons() {
           <label>資料（1行に1つ「資料名 URL」）</label>
           <textarea name="materials" style={{ minHeight: 70 }} defaultValue={(l.materials || []).map((m: any) => `${m.label} ${m.url}`).join("\n")} placeholder="第1回スライド https://drive.google.com/..." />
           <div className="spacer" /><button className="btn small">第{l.no}回を保存</button>
-        </form>
-      ))}
-    </>
-  );
-}
-
-async function Questions() {
-  const list = await q<any>(`select qq.*, m.name, to_char(qq.created_at at time zone 'Asia/Tokyo','MM/DD HH24:MI') t
-    from meisou.questions qq join meisou.members m on m.id=qq.member_id order by (qq.answer='') desc, qq.created_at desc limit 100`);
-  const waiting = list.filter((x: any) => !x.answer).length;
-  return (
-    <>
-      <h2 style={{ marginTop: 0 }}>質問（回答待ち {waiting}件）</h2>
-      <p className="muted">回答すると、つっちーのアイコンつきで会員ページに出ます。</p>
-      {list.map((x: any) => (
-        <form action={A.answerQuestion} className="card" key={x.id} style={{ marginBottom: 12 }}>
-          <input type="hidden" name="id" value={x.id} />
-          <span className="muted">{x.t}　{x.name}さん</span> {x.answer ? <span className="tag">回答済み</span> : <span className="tag gold">回答待ち</span>}
-          <p className="prose" style={{ fontWeight: 500 }}>Q. {x.question}</p>
-          <textarea name="answer" defaultValue={x.answer} placeholder="回答を書く" />
-          <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="is_public" defaultChecked={x.is_public} style={{ width: "auto" }} /> みんなに公開（名前は出ません）</label>
-          <div className="row" style={{ marginTop: 10 }}>
-            <button className="btn small">回答を保存</button>
-            <button className="btn small ghost" formAction={A.deleteQuestion}>削除</button>
-          </div>
         </form>
       ))}
     </>
