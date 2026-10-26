@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { q, one } from "@/lib/db";
 import { requireMember } from "@/lib/auth";
+import { answerWithAI } from "@/lib/knowledge";
 
 export async function logMeditation(minutes: number, note: string) {
   const m = await requireMember();
@@ -44,6 +45,14 @@ export async function askQuestion(fd: FormData) {
   if (!question) redirect("/app/qa?e=" + encodeURIComponent("質問を書いてください"));
   const cnt = await one<{ c: string }>("select count(*) c from meisou.questions where member_id=$1 and created_at > now() - interval '1 day'", [m.id]);
   if (Number(cnt?.c || 0) >= 5) redirect("/app/qa?e=" + encodeURIComponent("質問は1日5件までです"));
-  await q("insert into meisou.questions (member_id, question, is_public) values ($1,$2,$3)", [m.id, question, fd.get("is_public") === "on"]);
-  redirect("/app/qa?ok=" + encodeURIComponent("質問を送りました。回答が来たらここに出ます"));
+  const row = await one<{ id: string }>("insert into meisou.questions (member_id, question, is_public) values ($1,$2,$3) returning id", [m.id, question, fd.get("is_public") === "on"]);
+  let answered = false;
+  try {
+    const a = await answerWithAI(question);
+    if (a.text) {
+      await q("update meisou.questions set answer=$1, refs=$2, by_ai=true, answered_at=now() where id=$3", [a.text.replace(/\*\*/g, "").replace(/^#+\s*/gm, ""), JSON.stringify(a.refs), row!.id]);
+      answered = true;
+    }
+  } catch {}
+  redirect("/app/qa?ok=" + encodeURIComponent(answered ? "つっちーAIが答えました" : "質問を送りました。回答が来たらここに出ます"));
 }
