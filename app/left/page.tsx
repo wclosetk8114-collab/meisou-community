@@ -12,7 +12,7 @@ export default function Left() {
           <p className="en">THANK YOU</p>
           <h1 style={{ fontSize: 24 }}>退会済みのアカウントです</h1>
           <p>これまでありがとうございました。<br />退会後は、メディア・音声・講座などの会員ページは見られません。</p>
-          <p className="muted">また始めたくなったら、いつでも戻ってこられます。</p>
+          <p className="muted">また始めたくなったら、いつでも戻ってこられます。お問い合わせは<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>へ。</p>
           <p><a href={SITE.freeOpenchat} target="_blank" rel="noreferrer">無料オープンチャット（イベント・最新情報）</a></p>
           <div className="row" style={{ justifyContent: "center", marginTop: 20 }}>
             <Link className="btn ghost" href="/">トップへ</Link>

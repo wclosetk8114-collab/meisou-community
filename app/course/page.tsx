@@ -17,7 +17,7 @@ export default async function CourseLP() {
         <div className="card" style={{ textAlign: "center", margin: "28px 0" }}>
           <p className="price">{yen(SITE.course)}<small>（税別）</small></p>
           <p className="muted">税込 {yen(SITE.courseTaxIn)}｜動画＋資料｜くり返し見られます</p>
-          <p className="muted">お申し込みは運営までご連絡ください。受講が始まると、会員ページに講座が開きます。</p>
+          <p className="muted">お申し込みは<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>からご連絡ください。受講が始まると、会員ページに講座が開きます。</p>
         </div>
         <h2>内容</h2>
         <div className="card">

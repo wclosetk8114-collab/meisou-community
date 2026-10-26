@@ -13,6 +13,8 @@ export const SITE = {
   freeOpenchat: "https://line.me/ti/g2/JDZAsLhGeNsPmgRowt8w8ds2JzsKt7byFy3QZw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default",
   // Stripe の月額3,980円 決済リンク（入れると「会員になる」ボタンが決済に飛ぶ。空なら参加コード登録）
   payLink: "",
+  // KUU公式LINE（運営への連絡窓口）
+  line: "https://lin.ee/NlWRY0V",
 };
 export const joinHref = () => SITE.payLink || "/signup";
 export const yen = (n: number) => n.toLocaleString("ja-JP") + "円";

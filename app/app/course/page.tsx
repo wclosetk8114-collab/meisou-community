@@ -14,7 +14,7 @@ export default async function CourseHome() {
       {!ok && (
         <div className="card" style={{ marginBottom: 20, background: "linear-gradient(135deg,#fff,#f8f1e1)" }}>
           <p style={{ margin: 0 }}>この講座は別のお申し込みです。<b>{yen(SITE.course)}（税別）</b>／税込 {yen(SITE.courseTaxIn)}</p>
-          <p className="muted">動画と資料をくり返し見られます。お申し込みは運営までご連絡ください。受講が始まると、ここから見られるようになります。</p>
+          <p className="muted">動画と資料をくり返し見られます。お申し込みは<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>からご連絡ください。受講が始まると、ここから見られるようになります。</p>
         </div>
       )}
       <div className="grid">
