@@ -60,7 +60,7 @@ export default async function AppHome() {
         </Link>
         <Link href="/app/qa" className="card" style={{ textDecoration: "none", color: "inherit", display: "flex", gap: 14, alignItems: "center" }}>
           <img src="/tsuchii.jpg" alt="" width={56} height={56} style={{ borderRadius: "50%", border: "1px solid var(--gold-l)" }} />
-          <div><p className="label" style={{ marginBottom: 2 }}>Q &amp; A</p><h3 style={{ margin: 0 }}>瞑想で困ったら、つっちーに質問</h3></div>
+          <div><p className="label" style={{ marginBottom: 2 }}>Q &amp; A</p><h3 style={{ margin: 0 }}>瞑想で困ったら、つっちーAIに質問</h3></div>
         </Link>
         <div className="card">
           <p className="label">New</p>
