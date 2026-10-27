@@ -43,7 +43,7 @@ export default function Home() {
             <div className="orbit"><span /><span /><span /><div className="sat"><i /></div></div>
             <p className="en">{SITE.en}</p>
             <h1><span>毎日、瞑想で</span><span>静けさにもどる。</span><br /><span>そこから、</span><span>視座がひらく。</span></h1>
-            <p className="muted" style={{ fontSize: 15 }}>いっしょに瞑想する、会員制のコミュニティ。</p>
+            <p className="muted" style={{ fontSize: 15 }}>瞑想×思想の、会員制コミュニティ。</p>
             <div className="spacer" />
             <div className="row" style={{ justifyContent: "center", gap: 14 }}>
               <a href={joinHref()} className="btn">会員になる</a>
