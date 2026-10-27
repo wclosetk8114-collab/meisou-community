@@ -158,7 +158,7 @@ export default function Home() {
                 <p className="en" style={{ color: "#bcd8f7" }}>Accompany</p>
                 <h3 style={{ margin: "4px 0", color: "#fff" }}>伴走プラン</h3>
                 <p className="price" style={{ fontSize: 34, color: "#fff" }}>{yen(SITE.bansou)}<small style={{ color: "rgba(230,240,255,.8)" }}>／{SITE.bansouMonths}ヶ月（税別）</small></p>
-                <p style={{ color: "rgba(230,240,255,.85)", fontSize: 13.5 }}>つっちーと月{SITE.bansouPerMonth}回のオンラインで、本気で変わりたい人へ。会員の機能と動画講座もすべて込み。</p>
+                <p style={{ color: "rgba(230,240,255,.85)", fontSize: 13.5 }}>つっちーと月{SITE.bansouPerMonth}回のオンラインで、本気で変わりたい人へ。会員の機能と動画講座もすべて込み。{SITE.bansouMonths}ヶ月後からは月額{yen(SITE.monthly)}に。</p>
                 <a href="#bansou" className="btn" style={{ background: "#fff", color: "#0f1c3a", borderColor: "#fff" }}>くわしく見る</a>
               </div>
             </div>
@@ -210,6 +210,7 @@ export default function Home() {
                   <tr><th>オンライン</th><td>月{SITE.bansouPerMonth}回 × {SITE.bansouMonths}ヶ月（計{SITE.bansouPerMonth * SITE.bansouMonths}回）</td></tr>
                   <tr><th>込みのもの</th><td>KUU会員のすべての機能／瞑想 動画講座（全{SITE.lessonsCount}回・資料つき）</td></tr>
                   <tr><th>料金</th><td><b>{yen(SITE.bansou)}</b>（税別）／税込 {yen(SITE.bansouTaxIn)}</td></tr>
+                  <tr><th>{SITE.bansouMonths}ヶ月のあと</th><td>KUU会員として、月額 {yen(SITE.monthly)}（税込）で続けられます</td></tr>
                 </tbody>
               </table>
               <div style={{ textAlign: "center", marginTop: 20 }}>
