@@ -1,7 +1,9 @@
 import Timer from "@/components/Timer";
+import { MOODS } from "@/lib/moods";
 import { requireMember } from "@/lib/auth";
 import { myStats } from "@/lib/stats";
 import { q } from "@/lib/db";
+import { addChangeNote, deleteChangeNote } from "@/app/actions/member";
 
 export default async function Meditate() {
   const m = await requireMember();
@@ -14,6 +16,9 @@ export default async function Meditate() {
     `select mb.name, l.minutes, l.note, to_char(l.created_at at time zone 'Asia/Tokyo','HH24:MI') t
      from meisou.meditation_logs l join meisou.members mb on mb.id=l.member_id
      where l.day=(now() at time zone 'Asia/Tokyo')::date order by l.created_at desc limit 50`);
+  const notes = await q<{ id: string; mood: string; body: string; minutes: number | null; d: string }>(
+    `select id, mood, body, minutes, to_char(created_at at time zone 'Asia/Tokyo','YYYY.MM.DD HH24:MI') d
+     from meisou.change_notes where member_id=$1 order by created_at desc limit 60`, [m.id]);
   return (
     <>
       <h1 style={{ fontSize: 28 }}>今日の瞑想</h1>
@@ -47,6 +52,35 @@ export default async function Meditate() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="card" style={{ marginTop: 18 }} id="notes">
+        <p className="label" style={{ marginBottom: 2 }}>My notes</p>
+        <h3 style={{ marginTop: 0 }}>わたしの変化ノート</h3>
+        <p className="muted" style={{ marginTop: 0 }}>瞑想して気づいたこと、毎日の小さな変化を書きとめる場所です。自分だけに見えます。</p>
+        <form action={addChangeNote}>
+          <div className="chips" style={{ justifyContent: "flex-start" }}>
+            {MOODS.map((x) => (
+              <label key={x} className="chip" style={{ cursor: "pointer" }}><input type="radio" name="mood" value={x} style={{ width: "auto", marginRight: 4 }} />{x}</label>
+            ))}
+          </div>
+          <textarea name="body" maxLength={2000} style={{ minHeight: 80 }} placeholder="例：最近、寝る前に考えごとをしなくなってきた" />
+          <div className="spacer" />
+          <button className="btn small">書きとめる</button>
+        </form>
+        <div style={{ marginTop: 18 }}>
+          {notes.length === 0 && <p className="muted">まだノートはありません。瞑想のあとに、ひとことから書いてみましょう。</p>}
+          {notes.map((n) => (
+            <div key={n.id} style={{ borderTop: "1px solid var(--line)", padding: "12px 0" }}>
+              <div className="row" style={{ justifyContent: "space-between", gap: 8 }}>
+                <span className="muted" style={{ fontSize: 12.5 }}>{n.d}{n.minutes ? `　瞑想${n.minutes}分` : ""}</span>
+                <form action={deleteChangeNote}><input type="hidden" name="id" value={n.id} /><button className="btn small ghost" style={{ padding: "2px 10px", fontSize: 12 }}>消す</button></form>
+              </div>
+              {n.mood && <span className="tag gold">{n.mood}</span>}
+              {n.body && <p className="prose" style={{ margin: "6px 0 0" }}>{n.body}</p>}
+            </div>
+          ))}
         </div>
       </div>
     </>
