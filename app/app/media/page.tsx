@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { requireMember } from "@/lib/auth";
 import { q } from "@/lib/db";
+import Banner from "@/components/Banner";
 
 export default async function Media() {
   await requireMember();
-  const posts = await q<any>("select id,title,left(body,90) ex,to_char(created_at at time zone 'Asia/Tokyo','YYYY.MM.DD') d from meisou.posts where kind='article' and published order by created_at desc");
+  const posts = await q<any>("select id,title,image_url,left(body,90) ex,to_char(created_at at time zone 'Asia/Tokyo','YYYY.MM.DD') d from meisou.posts where kind='article' and published order by created_at desc");
   return (
     <>
       <p className="en">MEDIA</p>
@@ -13,7 +14,8 @@ export default async function Media() {
       <div className="grid">
         {posts.map((p: any) => (
           <Link key={p.id} href={`/app/media/${p.id}`} className="card" style={{ textDecoration: "none", color: "inherit" }}>
-            <span className="muted">{p.d}</span><h3>{p.title}</h3><p className="muted" style={{ margin: 0 }}>{p.ex}…</p>
+            <Banner id={p.id} title={p.title} image={p.image_url} small />
+            <span className="muted" style={{ display: "block", marginTop: 12 }}>{p.d}</span><h3>{p.title}</h3><p className="muted" style={{ margin: 0 }}>{p.ex}…</p>
           </Link>
         ))}
         {posts.length === 0 && <p className="muted">記事はまだありません。</p>}
