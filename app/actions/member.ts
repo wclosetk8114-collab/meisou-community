@@ -5,14 +5,29 @@ import { q, one } from "@/lib/db";
 import { requireMember } from "@/lib/auth";
 import { answerWithAI } from "@/lib/knowledge";
 
-export async function logMeditation(minutes: number, note: string) {
+export async function logMeditation(minutes: number, note: string, change = "", mood = "") {
   const m = await requireMember();
   const min = Math.max(0, Math.min(180, Math.round(Number(minutes) || 0)));
   await q("insert into meisou.meditation_logs (member_id, day, minutes, note) values ($1, (now() at time zone 'Asia/Tokyo')::date, $2, $3)",
     [m.id, min, String(note || "").slice(0, 300)]);
+  const body = String(change || "").trim().slice(0, 2000), md = String(mood || "").slice(0, 20);
+  if (body || md) await q("insert into meisou.change_notes (member_id, mood, body, minutes) values ($1,$2,$3,$4)", [m.id, md, body, min]);
   revalidatePath("/app/meditate");
   revalidatePath("/app");
   return { ok: true };
+}
+
+/** 変化ノート（自分だけに見える）をタイマーなしで書く */
+export async function addChangeNote(fd: FormData) {
+  const m = await requireMember();
+  const body = String(fd.get("body") || "").trim().slice(0, 2000), mood = String(fd.get("mood") || "").slice(0, 20);
+  if (body || mood) await q("insert into meisou.change_notes (member_id, mood, body) values ($1,$2,$3)", [m.id, mood, body]);
+  revalidatePath("/app/meditate");
+}
+export async function deleteChangeNote(fd: FormData) {
+  const m = await requireMember();
+  await q("delete from meisou.change_notes where id=$1 and member_id=$2", [String(fd.get("id")), m.id]);
+  revalidatePath("/app/meditate");
 }
 
 export async function createTogether(fd: FormData) {
