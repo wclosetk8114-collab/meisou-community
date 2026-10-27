@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { logMeditation } from "@/app/actions/member";
+import { MOODS } from "@/lib/moods";
 
 function bell(ctx: AudioContext) {
   [528, 792].forEach((f, i) => {
@@ -18,6 +19,8 @@ export default function Timer() {
   const [left, setLeft] = useState(10 * 60);
   const [state, setState] = useState<"idle" | "run" | "pause" | "done">("idle");
   const [note, setNote] = useState("");
+  const [change, setChange] = useState("");
+  const [mood, setMood] = useState("");
   const [saved, setSaved] = useState(false);
   const [phase, setPhase] = useState("");
   const ctx = useRef<AudioContext | null>(null);
@@ -43,8 +46,8 @@ export default function Timer() {
   };
   const pick = (n: number) => { setLen(n); setLeft(n * 60); setState("idle"); setSaved(false); };
   const save = async (minutes: number) => {
-    await logMeditation(minutes, note);
-    setSaved(true); setNote("");
+    await logMeditation(minutes, note, change, mood);
+    setSaved(true); setNote(""); setChange(""); setMood("");
   };
   const mm = String(Math.floor(left / 60)).padStart(2, "0"), ss = String(left % 60).padStart(2, "0");
   const doneMin = Math.max(1, Math.round((len * 60 - left) / 60));
@@ -77,6 +80,14 @@ export default function Timer() {
       {state === "done" && !saved && (
         <div style={{ textAlign: "left" }}>
           <p className="mincho" style={{ textAlign: "center", fontSize: 20 }}>おつかれさまでした</p>
+          <label>いまの感じ（自分だけに見えます）</label>
+          <div className="chips" style={{ justifyContent: "flex-start" }}>
+            {MOODS.map((x) => (
+              <button key={x} type="button" className={`chip ${mood === x ? "on" : ""}`} onClick={() => setMood(mood === x ? "" : x)}>{x}</button>
+            ))}
+          </div>
+          <label>気づいた変化・感じたこと（自分だけに見えます）</label>
+          <textarea value={change} onChange={(e) => setChange(e.target.value)} maxLength={2000} style={{ minHeight: 90 }} placeholder="例：始める前はイライラしていたけど、終わったら少し落ち着いた" />
           <label>ひとこと（みんなに表示されます・なくてもOK）</label>
           <input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} placeholder="例：今日は呼吸がゆっくりになった" />
           <div className="spacer" />
