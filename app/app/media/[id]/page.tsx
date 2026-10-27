@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireMember } from "@/lib/auth";
 import { one } from "@/lib/db";
 import { audioEmbed } from "@/lib/embed";
+import Banner from "@/components/Banner";
 
 export default async function Article({ params }: { params: Promise<{ id: string }> }) {
   await requireMember();
@@ -14,6 +15,7 @@ export default async function Article({ params }: { params: Promise<{ id: string
   return (
     <article className="narrow" style={{ padding: 0 }}>
       <Link href="/app/media" className="muted">← メディア一覧</Link>
+      <div style={{ marginTop: 16 }}><Banner id={p.id} title={p.title} image={p.image_url} /></div>
       <p className="muted" style={{ marginTop: 20 }}>{p.d}</p>
       <h1 style={{ fontSize: 28 }}>{p.title}</h1>
       {a && (a.type === "audio" ? <audio controls src={a.src} style={{ width: "100%" }} /> : <iframe src={a.src} style={{ width: "100%", height: 120, border: 0 }} allow="autoplay" />)}
