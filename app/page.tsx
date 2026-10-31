@@ -151,7 +151,7 @@ export default function Home() {
                 <p className="en">Member</p>
                 <h3 style={{ margin: "4px 0" }}>KUU会員</h3>
                 <p className="price" style={{ fontSize: 34 }}><span className="tag gold" style={{ fontSize: 12, verticalAlign: "middle", marginRight: 8 }}>期間限定</span>{yen(SITE.monthly)}<small>／月（税込）</small></p>
-                <p className="muted"><b style={{ color: "var(--gold)" }}>最初の1ヶ月は無料。</b>2ヶ月目から1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。</p>
+                <p className="muted"><b style={{ color: "var(--gold)" }}>最初の1ヶ月は無料。</b>2ヶ月目から1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。会費の一部は寄付にあてます。</p>
                 <a href={joinHref()} className="btn">初月無料ではじめる</a>
               </div>
               <div className="card">
@@ -197,6 +197,10 @@ export default function Home() {
               <p className="muted">毎日の瞑想・一緒に瞑想・メディア・音声・月1思想講座・つっちーAI質問・LINE連動<br />すべて込み</p>
               <div className="spacer" />
               <a href={joinHref()} className="btn gold">初月無料ではじめる</a>
+              <div style={{ marginTop: 22, padding: "16px 18px", borderRadius: 14, background: "rgba(255,255,255,.55)", border: "1px solid var(--line)", textAlign: "left" }}>
+                <p className="label" style={{ marginBottom: 4 }}>Give</p>
+                <p style={{ margin: 0, fontSize: 14 }}>会費の一部は、寄付にあてています。<br /><span className="muted">あなたが静けさにもどる時間が、だれかの支えにもつながります。</span></p>
+              </div>
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
             </div>
             <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）</Link></p>
