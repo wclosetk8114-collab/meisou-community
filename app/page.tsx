@@ -46,7 +46,7 @@ export default function Home() {
             <p className="muted" style={{ fontSize: 15 }}>瞑想×思想の、会員制コミュニティ。</p>
             <div className="spacer" />
             <div className="row" style={{ justifyContent: "center", gap: 14 }}>
-              <a href={joinHref()} className="btn">会員になる</a>
+              <a href={joinHref()} className="btn">初月無料ではじめる</a>
               <Link href="/login" className="btn ghost noarrow">ログイン</Link>
             </div>
           </div>
@@ -151,8 +151,8 @@ export default function Home() {
                 <p className="en">Member</p>
                 <h3 style={{ margin: "4px 0" }}>KUU会員</h3>
                 <p className="price" style={{ fontSize: 34 }}><span className="tag gold" style={{ fontSize: 12, verticalAlign: "middle", marginRight: 8 }}>期間限定</span>{yen(SITE.monthly)}<small>／月（税込）</small></p>
-                <p className="muted">1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。</p>
-                <a href={joinHref()} className="btn">会員になる</a>
+                <p className="muted"><b style={{ color: "var(--gold)" }}>最初の1ヶ月は無料。</b>2ヶ月目から1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。</p>
+                <a href={joinHref()} className="btn">初月無料ではじめる</a>
               </div>
               <div className="card" style={{ background: "linear-gradient(160deg,#0f1c3a,#24427e)", color: "#fff", border: "1px solid rgba(255,255,255,.2)" }}>
                 <p className="en" style={{ color: "#bcd8f7" }}>Accompany</p>
@@ -184,9 +184,11 @@ export default function Home() {
             <div className="card" style={{ padding: "44px 26px" }}>
               <p className="en">Monthly membership</p>
               <p className="price"><span className="tag gold" style={{ fontSize: 12, verticalAlign: "middle", marginRight: 8 }}>期間限定</span>{yen(SITE.monthly)}<small>／月（税込）</small></p>
+              <p style={{ margin: "4px 0 10px" }}><span className="tag gold" style={{ fontSize: 13, padding: "4px 14px" }}>最初の1ヶ月は無料</span></p>
+              <p className="muted">2ヶ月目から月額{yen(SITE.monthly)}（税込）。無料の間に退会すれば、お金は一切かかりません。</p>
               <p className="muted">毎日の瞑想・一緒に瞑想・メディア・音声・月1思想講座・つっちーAI質問・LINE連動<br />すべて込み</p>
               <div className="spacer" />
-              <a href={joinHref()} className="btn gold">会員になる</a>
+              <a href={joinHref()} className="btn gold">初月無料ではじめる</a>
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
             </div>
             <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）</Link></p>
