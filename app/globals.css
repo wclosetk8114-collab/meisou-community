@@ -183,3 +183,9 @@ header.hdr{transition:background .3s}
 .plans .price small{display:block;margin:6px 0 0;font-size:13px}
 .plans .card{display:flex;flex-direction:column}
 .plans .card .btn{margin-top:auto;align-self:flex-start}
+.grid.plans{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.plans .card{padding:24px 20px}
+.plans .price{font-size:30px !important;line-height:1.25}
+.plans .price .tag{display:table;margin:0 0 6px !important}
+.plans .card .btn{white-space:nowrap;padding:11px 20px;font-size:13px;letter-spacing:.08em}
+.plans .card .btn:after{width:12px}

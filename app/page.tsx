@@ -12,17 +12,17 @@ const features = [
   { t: "LINEでつながる", d: "毎晩のお知らせ、「瞑想した」で記録、質問もLINEから。続ける仕組みが手のひらに。" },
 ];
 
-const compare: [string, boolean, boolean, boolean][] = [
-  ["イベント・最新情報のお知らせ", true, true, true],
-  ["毎日の瞑想タイマーと記録", false, true, true],
-  ["一緒に瞑想する仲間・募集", false, true, true],
-  ["会員だけのメディア・音声", false, true, true],
-  ["月1回 思想講座（ライブ＋録画）", false, true, true],
-  ["つっちーAIに質問", false, true, true],
-  ["LINEで毎日のお知らせ・記録", false, true, true],
-  ["会員向けオープンチャット", false, true, true],
-  ["瞑想 動画講座（全10回）", false, false, true],
-  ["つっちーと月2回のオンライン伴走", false, false, true],
+const compare: [string, boolean, boolean, boolean, boolean][] = [
+  ["イベント・最新情報のお知らせ", true, true, true, true],
+  ["毎日の瞑想タイマーと記録", false, true, false, true],
+  ["一緒に瞑想する仲間・募集", false, true, false, true],
+  ["会員だけのメディア・音声", false, true, false, true],
+  ["月1回 思想講座（ライブ＋録画）", false, true, false, true],
+  ["つっちーAIに質問", false, true, false, true],
+  ["LINEで毎日のお知らせ・記録", false, true, false, true],
+  ["会員向けオープンチャット", false, true, false, true],
+  ["瞑想 動画講座（全10回）", false, false, true, true],
+  ["つっちーと月2回のオンライン伴走", false, false, false, true],
 ];
 
 const changes = [
@@ -138,11 +138,11 @@ export default function Home() {
         <section id="plans" className="section" style={{ paddingTop: 20 }}>
           <div className="wrap">
             <p className="label"><b>07</b> Plans</p>
-            <h2>3つのプラン</h2>
+            <h2>4つのプラン</h2>
             <div className="grid plans" style={{ alignItems: "stretch" }}>
               <div className="card flat">
                 <p className="en">Free</p>
-                <h3 style={{ margin: "4px 0" }}>無料オープンチャット</h3>
+                <h3 style={{ margin: "4px 0" }}>無料</h3>
                 <p className="price" style={{ fontSize: 34 }}>0円</p>
                 <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届きます。</p>
                 <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small ghost">LINEで参加する</a>
@@ -154,6 +154,13 @@ export default function Home() {
                 <p className="muted"><b style={{ color: "var(--gold)" }}>最初の1ヶ月は無料。</b>2ヶ月目から1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。</p>
                 <a href={joinHref()} className="btn">初月無料ではじめる</a>
               </div>
+              <div className="card">
+                <p className="en">Video course</p>
+                <h3 style={{ margin: "4px 0" }}>動画講座プラン</h3>
+                <p className="price" style={{ fontSize: 34 }}>{yen(SITE.course)}<small>（税別）／税込 {yen(SITE.courseTaxIn)}</small></p>
+                <p className="muted">全{SITE.lessonsCount}回の動画と資料で、思考と視座をひろげる瞑想を体系的に学びたい人へ。くり返し見られます。</p>
+                <a href="/course" className="btn ghost">内容を見る</a>
+              </div>
               <div className="card" style={{ background: "linear-gradient(160deg,#0f1c3a,#24427e)", color: "#fff", border: "1px solid rgba(255,255,255,.2)" }}>
                 <p className="en" style={{ color: "#bcd8f7" }}>Accompany</p>
                 <h3 style={{ margin: "4px 0", color: "#fff" }}>伴走プラン</h3>
@@ -164,12 +171,13 @@ export default function Home() {
             </div>
             <div className="card" style={{ marginTop: 18, overflowX: "auto" }}>
               <table>
-                <thead><tr><th></th><th style={{ textAlign: "center" }}>無料</th><th style={{ textAlign: "center" }}>会員</th><th style={{ textAlign: "center" }}>伴走</th></tr></thead>
+                <thead><tr><th></th><th style={{ textAlign: "center" }}>無料</th><th style={{ textAlign: "center" }}>会員</th><th style={{ textAlign: "center" }}>動画講座</th><th style={{ textAlign: "center" }}>伴走</th></tr></thead>
                 <tbody>
-                  {compare.map(([t, f, m, b]) => (
+                  {compare.map(([t, f, m, v, b]) => (
                     <tr key={t}><td>{t}</td>
                       <td style={{ textAlign: "center", fontSize: 18, color: f ? "var(--gold)" : "var(--sub)" }}>{f ? "○" : "—"}</td>
                       <td style={{ textAlign: "center", fontSize: 18, color: m ? "var(--gold)" : "var(--sub)" }}>{m ? "○" : "—"}</td>
+                      <td style={{ textAlign: "center", fontSize: 18, color: v ? "var(--gold)" : "var(--sub)" }}>{v ? "○" : "—"}</td>
                       <td style={{ textAlign: "center", fontSize: 18, color: b ? "var(--gold)" : "var(--sub)" }}>{b ? "○" : "—"}</td></tr>
                   ))}
                 </tbody>
