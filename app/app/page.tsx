@@ -8,6 +8,7 @@ import { q, one } from "@/lib/db";
 export default async function AppHome() {
   const m = await requireMember();
   const s = await myStats(m.id);
+  const dg = await one<{ dragon_name: string | null; dragon_egg: string | null }>("select dragon_name, dragon_egg from meisou.members where id=$1", [m.id]).catch(() => null);
   const live = await one<{ title: string; d: string; t: string }>(
     "select title, to_char(starts_at at time zone 'Asia/Tokyo','MM.DD') d, to_char(starts_at at time zone 'Asia/Tokyo','HH24:MI') t from meisou.live_sessions where starts_at > now() - interval '3 hours' order by starts_at limit 1");
   const posts = await q<{ id: string; kind: string; title: string; d: string }>(
@@ -42,7 +43,7 @@ export default async function AppHome() {
         <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalDays}</div><span className="muted">日やった</span></div>
         <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalMin}</div><span className="muted">分の合計</span></div>
       </div>
-      <Link href="/app/meditate" style={{ display: "block", marginTop: 18, textDecoration: "none", color: "inherit" }}><DragonCard totalMin={s.totalMin} compact /></Link>
+      <Link href="/app/meditate" style={{ display: "block", marginTop: 18, textDecoration: "none", color: "inherit" }}><DragonCard totalMin={s.totalMin} name={dg?.dragon_name} egg={dg?.dragon_egg} compact /></Link>
       <a href={SITE.openchat} target="_blank" rel="noreferrer" className="card row" style={{ justifyContent: "space-between", marginTop: 18, textDecoration: "none", color: "inherit" }}>
         <div><p className="label" style={{ marginBottom: 2 }}>Open chat</p><h3 style={{ margin: 0 }}>会員向けオープンチャット</h3><span className="muted">KUUの会員だけが入れるLINEのオープンチャットです</span></div>
         <span className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>LINEで参加する</span>

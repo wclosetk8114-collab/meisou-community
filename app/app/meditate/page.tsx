@@ -3,12 +3,13 @@ import DragonCard from "@/components/DragonCard";
 import { MOODS } from "@/lib/moods";
 import { requireMember } from "@/lib/auth";
 import { myStats } from "@/lib/stats";
-import { q } from "@/lib/db";
+import { q, one } from "@/lib/db";
 import { addChangeNote, deleteChangeNote } from "@/app/actions/member";
 
 export default async function Meditate() {
   const m = await requireMember();
   const s = await myStats(m.id);
+  const dg = await one<{ dragon_name: string | null; dragon_egg: string | null }>("select dragon_name, dragon_egg from meisou.members where id=$1", [m.id]).catch(() => null);
   const [y, mo] = s.today.split("-").map(Number);
   const first = new Date(Date.UTC(y, mo - 1, 1));
   const daysIn = new Date(Date.UTC(y, mo, 0)).getUTCDate();
@@ -26,7 +27,7 @@ export default async function Meditate() {
       <div className="grid" style={{ alignItems: "start" }}>
         <Timer />
         <div>
-          <DragonCard totalMin={s.totalMin} />
+          <DragonCard totalMin={s.totalMin} name={dg?.dragon_name} egg={dg?.dragon_egg} />
           <div className="card" style={{ marginTop: 18 }}>
             <div className="row" style={{ justifyContent: "space-around", textAlign: "center" }}>
               <div><div className="price">{s.streak}</div><span className="muted">日連続</span></div>

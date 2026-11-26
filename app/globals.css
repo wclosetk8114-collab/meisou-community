@@ -248,3 +248,8 @@ header.hdr{transition:background .3s}
 .soon-tag{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 10px;border-radius:99px;font-size:11px;letter-spacing:.08em;font-weight:600;background:rgba(79,134,201,.12);color:#3c6fb0;border:1px solid rgba(79,134,201,.35);font-family:inherit}
 .soon-tag.dark{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.4)}
 h1 .soon-tag,h2 .soon-tag{font-size:12px}
+.egg-pick{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:6px}
+.egg-pick button{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;padding:6px 2px;cursor:pointer;font:inherit;font-size:11px;color:inherit;display:flex;flex-direction:column;align-items:center}
+.egg-pick button.on{border-color:#4f86c9;box-shadow:0 0 0 2px rgba(79,134,201,.25);background:#fff}
+.egg-pick .dragon{margin:0}
+@media(max-width:480px){.egg-pick{grid-template-columns:repeat(3,1fr)}}

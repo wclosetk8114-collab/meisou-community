@@ -88,3 +88,17 @@ export async function toggleRemind() {
   await q("update meisou.members set line_remind = not line_remind where id=$1", [m.id]);
   redirect("/app/account#line");
 }
+
+/** 育つ竜の名前・卵の種類 */
+export async function setDragon(name: string, egg: string) {
+  const m = await requireMember();
+  const { EGGS, HATCH_MIN } = await import("@/lib/dragon");
+  const nm = String(name || "").replace(/\s+/g, " ").trim().slice(0, 20);
+  const total = await one<{ t: number }>("select coalesce(sum(minutes),0)::int t from meisou.meditation_logs where member_id=$1", [m.id]);
+  const okEgg = EGGS.some((e) => e.key === egg) && (total?.t ?? 0) < HATCH_MIN;
+  if (okEgg) await q("update meisou.members set dragon_name=$2, dragon_egg=$3 where id=$1", [m.id, nm || null, egg]);
+  else await q("update meisou.members set dragon_name=$2 where id=$1", [m.id, nm || null]);
+  revalidatePath("/app/meditate");
+  revalidatePath("/app");
+  return { ok: true };
+}
