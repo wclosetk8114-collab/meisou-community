@@ -45,7 +45,7 @@ export default async function AppHome() {
       </div>
       <Link href="/app/meditate" style={{ display: "block", marginTop: 18, textDecoration: "none", color: "inherit" }}><DragonCard totalMin={s.totalMin} name={dg?.dragon_name} egg={dg?.dragon_egg} compact /></Link>
       <a href={SITE.openchat} target="_blank" rel="noreferrer" className="card row" style={{ justifyContent: "space-between", marginTop: 18, textDecoration: "none", color: "inherit" }}>
-        <div><p className="label" style={{ marginBottom: 2 }}>Open chat</p><h3 style={{ margin: 0 }}>会員向けオープンチャット</h3><span className="muted">KUUの会員だけが入れるLINEのオープンチャットです</span></div>
+        <div><p className="label" style={{ marginBottom: 2 }}>Open chat</p><h3 style={{ margin: 0 }}>会員向けオープンチャット</h3><span className="muted">くうの会員だけが入れるLINEのオープンチャットです</span></div>
         <span className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>LINEで参加する</span>
       </a>
       <div className="grid" style={{ marginTop: 18 }}>

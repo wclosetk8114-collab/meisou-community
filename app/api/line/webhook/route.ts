@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const HELP = `KUU公式LINEでできること
+const HELP = `くう公式LINEでできること
 
 ・「瞑想した」と送る → 今日の瞑想を記録（「瞑想した 10分」もOK）
 ・「質問 〜」と送る → つっちーAIが答えます
@@ -36,7 +36,7 @@ async function handle(ev: any) {
   if (ev.type === "follow") {
     const m = await one("select id from meisou.members where line_user_id=$1", [uid]);
     if (m) return reply(rt, "おかえりなさい。会員サイトとつながっています。\n\n" + HELP);
-    return reply(rt, `KUU公式LINEへようこそ。\n\n会員の方は、会員サイトのマイページに出る「6けたのコード」をここに送ってください。LINEと会員サイトがつながります。\n\nマイページ：${SITE.url}/app/account`);
+    return reply(rt, `くう公式LINEへようこそ。\n\n会員の方は、会員サイトのマイページに出る「6けたのコード」をここに送ってください。LINEと会員サイトがつながります。\n\nマイページ：${SITE.url}/app/account`);
   }
   if (ev.type !== "message" || ev.message?.type !== "text") return;
   const raw = String(ev.message.text || "").trim();
@@ -54,7 +54,7 @@ async function handle(ev: any) {
 
   const m = await one<{ id: string; name: string; status: string; is_admin: boolean }>(
     "select id, name, status, is_admin from meisou.members where line_user_id=$1", [uid]);
-  if (!m) return reply(rt, `まだ会員サイトとつながっていません。\n会員の方は、マイページに出る6けたのコードをここに送ってください。\n${SITE.url}/app/account\n\nKUUについて：${SITE.url}`);
+  if (!m) return reply(rt, `まだ会員サイトとつながっていません。\n会員の方は、マイページに出る6けたのコードをここに送ってください。\n${SITE.url}/app/account\n\nくう（KUU）について：${SITE.url}`);
   if (m.status !== "active" && !m.is_admin) return reply(rt, `退会済みのため、この機能は使えません。また始めるときはこちらから：${SITE.url}`);
 
   // 瞑想の記録

@@ -23,7 +23,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
             <button className="btn" style={{ width: "100%" }}>ログインする</button>
           </form>
           <p className="muted" style={{ marginTop: 18 }}>
-            はじめての方は <a href={joinHref()}>会員になる</a>　／　パスワードを忘れたら<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>へ
+            はじめての方は <a href={joinHref()}>会員になる</a>　／　パスワードを忘れたら<a href={SITE.line} target="_blank" rel="noreferrer">くう公式LINE</a>へ
           </p>
         </div>
       </main>

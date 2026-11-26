@@ -5,7 +5,8 @@ import { dragonOf, DRAGON_STAGES, eggOf, HATCH_MIN } from "@/lib/dragon";
 export default function DragonCard({ totalMin, name, egg, compact = false }: { totalMin: number; name?: string | null; egg?: string | null; compact?: boolean }) {
   const d = dragonOf(totalMin);
   const E = eggOf(egg);
-  const nm = name || "くう";
+  const nm = name || "名前をつけてね";
+  const who = name || "竜";
   const canEgg = totalMin < HATCH_MIN;
   return (
     <div className="card dragon-card" style={{ textAlign: "center" }}>
@@ -17,7 +18,7 @@ export default function DragonCard({ totalMin, name, egg, compact = false }: { t
       {d.next ? (
         <>
           <div className="dg-bar"><i style={{ width: `${Math.round(d.progress * 100)}%` }} /></div>
-          <p className="muted" style={{ fontSize: 12.5, marginTop: 6 }}>あと<b>{d.toNext}分</b>の瞑想で、{nm}が「{d.next.name}」に育ちます（合計 {totalMin}分）</p>
+          <p className="muted" style={{ fontSize: 12.5, marginTop: 6 }}>あと<b>{d.toNext}分</b>の瞑想で、{who}が「{d.next.name}」に育ちます（合計 {totalMin}分）</p>
         </>
       ) : <p className="muted" style={{ fontSize: 12.5 }}>最後のすがたまで育ちました（合計 {totalMin}分）</p>}
       {!compact && (

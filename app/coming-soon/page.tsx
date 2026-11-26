@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `${SITE.name}｜2026年12月1日 オープン`,
-  description: "毎日、瞑想で静けさにもどる。そこから、視座がひらく。瞑想×思想の会員制コミュニティ KUU は 2026年12月1日にオープンします。",
+  description: "毎日、瞑想で静けさにもどる。そこから、視座がひらく。瞑想×思想の会員制コミュニティ くう（KUU）は 2026年12月1日にオープンします。",
 };
 
 export default function ComingSoon() {
@@ -22,10 +22,10 @@ export default function ComingSoon() {
         <p className="soon-text">瞑想×思想の会員制コミュニティ、まもなくはじまります。<br />オープンのお知らせは、無料オープンチャットで先にお届けします。</p>
         <div className="row" style={{ justifyContent: "center", gap: 12 }}>
           <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn">無料オープンチャットに入る</a>
-          <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">KUU公式LINE</a>
+          <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">くう公式LINE</a>
         </div>
       </div>
-      <a href="#kyojigen" className="soon-more">KUUについて ↓</a>
+      <a href="#kyojigen" className="soon-more">くう（KUU）について ↓</a>
     </main>
     <div className="soon-intro">
       <Intro />
@@ -36,7 +36,7 @@ export default function ComingSoon() {
           <p className="muted">料金やお申し込みは、オープンの日にこのページでご案内します。<br />いち早く知りたい方は、無料オープンチャットへどうぞ。</p>
           <div className="row" style={{ justifyContent: "center", gap: 12, marginTop: 18 }}>
             <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn">無料オープンチャットに入る</a>
-            <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">KUU公式LINE</a>
+            <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">くう公式LINE</a>
           </div>
         </div>
       </section>

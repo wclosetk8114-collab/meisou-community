@@ -1,6 +1,6 @@
 // 名前や価格はここを変えると全ページに反映されます
 export const SITE = {
-  name: "KUU",
+  name: "くう（KUU）",
   en: "KUU — MEDITATION COMMUNITY",
   tagline: "毎日、瞑想で静けさにもどる。そこから、視座がひらく。",
   monthly: 3980, // 税込・月額（期間限定価格）
@@ -18,7 +18,7 @@ export const SITE = {
   freeOpenchat: "https://line.me/ti/g2/JDZAsLhGeNsPmgRowt8w8ds2JzsKt7byFy3QZw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default",
   // Stripe の月額3,980円 決済リンク（入れると「会員になる」ボタンが決済に飛ぶ。空なら参加コード登録）
   payLink: "",
-  // KUU公式LINE（運営への連絡窓口）
+  // くう公式LINE（運営への連絡窓口）
   line: "https://lin.ee/NlWRY0V",
   // つっちー（土屋）の各種SNS（案内人のところに表示）
   sns: [

@@ -22,7 +22,7 @@ export default async function Start() {
         <a href={SITE.openchat} target="_blank" rel="noreferrer" className="btn noarrow" style={{ background: "#06c755", borderColor: "#06c755", width: "100%" }}>LINEで参加する</a>
       </div>
       <div className="card" style={{ marginTop: 16 }}>
-        <p className="label"><b>STEP 3</b> KUU公式LINEとつなぐ（おすすめ）</p>
+        <p className="label"><b>STEP 3</b> くう公式LINEとつなぐ（おすすめ）</p>
         <p className="muted">毎日のお知らせ・瞑想の記録・質問・新しい記事がLINEで届きます。</p>
         <Link href="/app/account#line" className="btn small ghost">つなぎ方を見る</Link>
       </div>

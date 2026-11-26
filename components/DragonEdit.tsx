@@ -26,7 +26,7 @@ export default function DragonEdit({ name, egg, canEgg, open: initOpen = false }
         </>
       )}
       <label>竜の名前</label>
-      <input value={nm} onChange={(e) => setNm(e.target.value)} maxLength={20} placeholder="例：くう" />
+      <input value={nm} onChange={(e) => setNm(e.target.value)} maxLength={20} placeholder="例：そらまる" />
       <div className="row" style={{ justifyContent: "center", marginTop: 12 }}>
         <button type="button" className="btn small" disabled={pending} onClick={() => start(async () => { await setDragon(nm, eg); setOpen(false); })}>{pending ? "保存中…" : "きめる"}</button>
         <button type="button" className="btn ghost small" onClick={() => setOpen(false)}>とじる</button>

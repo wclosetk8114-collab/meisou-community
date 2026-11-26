@@ -9,7 +9,7 @@ export default async function LineLink({ memberId }: { memberId: string }) {
   return (
     <div className="card" id="line" style={{ marginTop: 16 }}>
       <p className="label" style={{ marginBottom: 4 }}>LINE</p>
-      <h3 style={{ marginTop: 0 }}>KUU公式LINEとつなぐ</h3>
+      <h3 style={{ marginTop: 0 }}>くう公式LINEとつなぐ</h3>
       {linked ? (
         <>
           <p className="ok" style={{ margin: "8px 0" }}>つながっています</p>
@@ -22,9 +22,9 @@ export default async function LineLink({ memberId }: { memberId: string }) {
         </>
       ) : r?.line_link_code && r.valid ? (
         <>
-          <p className="muted" style={{ marginBottom: 4 }}>このコードをKUU公式LINEに送ってください（30分有効）</p>
+          <p className="muted" style={{ marginBottom: 4 }}>このコードをくう公式LINEに送ってください（30分有効）</p>
           <p className="num" style={{ letterSpacing: ".2em", margin: "4px 0 12px" }}>{r.line_link_code}</p>
-          <a href={SITE.line} target="_blank" rel="noreferrer" className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>KUU公式LINEを開く</a>
+          <a href={SITE.line} target="_blank" rel="noreferrer" className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>くう公式LINEを開く</a>
           <p className="muted" style={{ marginTop: 10 }}>送ったら、このページを開き直すと「つながっています」に変わります。</p>
         </>
       ) : (

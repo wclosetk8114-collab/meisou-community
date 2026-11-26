@@ -22,11 +22,11 @@ export function dragonOf(totalMin: number) {
 
 // 卵の種類（色でちがう竜が生まれる）
 export const EGGS = [
-  { key: "sora", name: "そらの卵", egg: ["#ffffff", "#eaf3ff", "#b9d6f5"], spot: ["#cfe2fa", "#d9cdf5"], body: "#a9d0f5", bodyD: "#7fb0e6", wing: "#c9bdf2", wingD: "#a796e0" },
-  { key: "sakura", name: "さくらの卵", egg: ["#ffffff", "#fff0f4", "#f6c3d2"], spot: ["#fbd5e0", "#ffe7c7"], body: "#f8c6d5", bodyD: "#e89ab2", wing: "#ffe2b8", wingD: "#eab97a" },
-  { key: "mori", name: "もりの卵", egg: ["#ffffff", "#eefaf0", "#bfe3c6"], spot: ["#cdebd3", "#f3e6b5"], body: "#b5e2bf", bodyD: "#84c493", wing: "#f3e3a6", wingD: "#d4bd6a" },
-  { key: "hoshi", name: "ほしの卵", egg: ["#f4f0ff", "#c9c1f2", "#5d58a8"], spot: ["#fff6c9", "#ffffff"], body: "#8f8ae0", bodyD: "#6460b8", wing: "#f5d98f", wingD: "#d6b55c" },
-  { key: "taiyo", name: "たいようの卵", egg: ["#ffffff", "#fff6dc", "#f6cf7c"], spot: ["#ffe2a1", "#ffc9a6"], body: "#ffd78a", bodyD: "#e7b04f", wing: "#ffb9a0", wingD: "#e88d6d" },
+  { key: "sora", name: "そらの卵", filter: "none", egg: ["#ffffff", "#eaf3ff", "#b9d6f5"], spot: ["#cfe2fa", "#d9cdf5"], body: "#a9d0f5", bodyD: "#7fb0e6", wing: "#c9bdf2", wingD: "#a796e0" },
+  { key: "sakura", name: "さくらの卵", filter: "hue-rotate(135deg) saturate(1.15)", egg: ["#ffffff", "#fff0f4", "#f6c3d2"], spot: ["#fbd5e0", "#ffe7c7"], body: "#f8c6d5", bodyD: "#e89ab2", wing: "#ffe2b8", wingD: "#eab97a" },
+  { key: "mori", name: "もりの卵", filter: "hue-rotate(-80deg) saturate(1.05)", egg: ["#ffffff", "#eefaf0", "#bfe3c6"], spot: ["#cdebd3", "#f3e6b5"], body: "#b5e2bf", bodyD: "#84c493", wing: "#f3e3a6", wingD: "#d4bd6a" },
+  { key: "hoshi", name: "ほしの卵", filter: "hue-rotate(40deg) saturate(1.5) brightness(.9)", egg: ["#f4f0ff", "#c9c1f2", "#5d58a8"], spot: ["#fff6c9", "#ffffff"], body: "#8f8ae0", bodyD: "#6460b8", wing: "#f5d98f", wingD: "#d6b55c" },
+  { key: "taiyo", name: "たいようの卵", filter: "hue-rotate(-165deg) saturate(1.4) brightness(1.03)", egg: ["#ffffff", "#fff6dc", "#f6cf7c"], spot: ["#ffe2a1", "#ffc9a6"], body: "#ffd78a", bodyD: "#e7b04f", wing: "#ffb9a0", wingD: "#e88d6d" },
 ] as const;
 export type EggKey = (typeof EGGS)[number]["key"];
 export function eggOf(key?: string | null) { return EGGS.find((e) => e.key === key) || EGGS[0]; }

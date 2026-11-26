@@ -20,7 +20,7 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
           <div className="card" style={{ textAlign: "center" }}>
             <p className="en">Thank you</p>
             <h1 style={{ fontSize: 24 }}>決済を確認できませんでした</h1>
-            <p className="muted">決済が終わったあとの画面から開き直してください。うまくいかないときは、<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>からご連絡ください。</p>
+            <p className="muted">決済が終わったあとの画面から開き直してください。うまくいかないときは、<a href={SITE.line} target="_blank" rel="noreferrer">くう公式LINE</a>からご連絡ください。</p>
             <Link href="/login" className="btn ghost noarrow">ログインへ</Link>
           </div>
         ) : used ? (

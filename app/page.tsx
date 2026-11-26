@@ -9,6 +9,7 @@ export const revalidate = 300;
 
 const compare: [string, boolean, boolean, boolean, boolean][] = [
   ["イベント・最新情報のお知らせ", true, true, true, true],
+  ["つっちーのラジオが聞ける", true, true, true, true],
   ["毎日の瞑想タイマーと記録", false, true, false, true],
   ["一緒に瞑想する仲間・募集", false, true, false, true],
   ["会員だけのメディア・音声", false, true, false, true],
@@ -58,12 +59,12 @@ export default function Home() {
                 <p className="en">Free</p>
                 <h3 style={{ margin: "4px 0" }}>無料</h3>
                 <p className="price" style={{ fontSize: 34 }}>0円</p>
-                <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届きます。</p>
+                <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届き、つっちーのラジオも聞けます。</p>
                 <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small ghost">LINEで参加する</a>
               </div>
               <div className="card" style={{ border: "1px solid var(--gold)" }}>
                 <p className="en">Member</p>
-                <h3 style={{ margin: "4px 0" }}>KUU会員</h3>
+                <h3 style={{ margin: "4px 0" }}>くう会員</h3>
                 <p className="price" style={{ fontSize: 34 }}><span className="tag gold" style={{ fontSize: 12, verticalAlign: "middle", marginRight: 8 }}>期間限定</span>{yen(SITE.monthly)}<small>／月（税込）</small></p>
                 <p className="muted"><b style={{ color: "var(--gold)" }}>最初の1ヶ月は無料。</b>2ヶ月目から1日あたり約{Math.round(SITE.monthly / 30)}円。毎日、静けさにもどる習慣をつくりたい人へ。会費の一部は寄付にあてます。</p>
                 <a href={joinHref()} className="btn">初月無料ではじめる</a>
@@ -137,15 +138,15 @@ export default function Home() {
                 <tbody>
                   <tr><th>期間</th><td>{SITE.bansouMonths}ヶ月</td></tr>
                   <tr><th>オンライン</th><td>月{SITE.bansouPerMonth}回 × {SITE.bansouMonths}ヶ月（計{SITE.bansouPerMonth * SITE.bansouMonths}回）</td></tr>
-                  <tr><th>込みのもの</th><td>KUU会員のすべての機能／瞑想 動画講座（全{SITE.lessonsCount}回・資料つき）</td></tr>
+                  <tr><th>込みのもの</th><td>くう会員のすべての機能／瞑想 動画講座（全{SITE.lessonsCount}回・資料つき）</td></tr>
                   <tr><th>料金</th><td><b>{yen(SITE.bansou)}</b>（税別）／税込 {yen(SITE.bansouTaxIn)}</td></tr>
-                  <tr><th>{SITE.bansouMonths}ヶ月のあと</th><td>KUU会員として、月額 {yen(SITE.monthly)}（税込）で続けられます</td></tr>
+                  <tr><th>{SITE.bansouMonths}ヶ月のあと</th><td>くう会員として、月額 {yen(SITE.monthly)}（税込）で続けられます</td></tr>
                 </tbody>
               </table>
               <div style={{ textAlign: "center", marginTop: 20 }}>
                 <p className="mincho" style={{ fontSize: 18, margin: "0 0 12px" }}>ただいま準備中です</p>
                 <a href={SITE.line} target="_blank" rel="noreferrer" className="btn gold">公開のお知らせをLINEで受け取る</a>
-                <p className="muted" style={{ marginTop: 10, fontSize: 12.5 }}>はじまったら、KUU公式LINEでいちばんにお知らせします。</p>
+                <p className="muted" style={{ marginTop: 10, fontSize: 12.5 }}>はじまったら、くう公式LINEでいちばんにお知らせします。</p>
               </div>
             </div>
           </div>
