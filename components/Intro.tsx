@@ -88,6 +88,18 @@ export default function Intro() {
 
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="narrow">
+            <p className="label"><b>Movie</b></p>
+            <h2>瞑想を毎日1年続けたら、人生が変わった</h2>
+            <p className="muted">疲れない・迷わない・直感が冴える。つっちーが1年間、毎日瞑想を続けて起きた変化を話しています。</p>
+            <div className="yt">
+              <iframe src="https://www.youtube-nocookie.com/embed/1D_Y9snPwBY" title="瞑想を毎日1年続けたら人生が変わった" loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+            </div>
+          </div>
+        </section>
+
+        <section className="section" style={{ paddingTop: 20 }}>
+          <div className="narrow">
             <p className="label"><b>06</b> Guide</p>
             <h2>案内人</h2>
             <div className="card" style={{ display: "flex", gap: 20, alignItems: "flex-start", flexWrap: "wrap" }}>
