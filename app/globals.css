@@ -189,3 +189,28 @@ header.hdr{transition:background .3s}
 .plans .price .tag{display:table;margin:0 0 6px !important}
 .plans .card .btn{white-space:nowrap;padding:11px 20px;font-size:13px;letter-spacing:.08em}
 .plans .card .btn:after{width:12px}
+
+/* ===== Coming soon ===== */
+.soon{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#030716 0%,#081536 35%,#16306a 65%,#4f7fbf 88%,#9cc3ea 100%);padding:60px 20px 0}
+.soon:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 28% 8%,#fff,transparent),radial-gradient(1.5px 1.5px at 44% 22%,#fff,transparent),
+  radial-gradient(1px 1px at 63% 12%,#fff,transparent),radial-gradient(1px 1px at 78% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 90% 9%,#fff,transparent),
+  radial-gradient(1px 1px at 7% 40%,#fff,transparent),radial-gradient(1px 1px at 35% 36%,#cfe4ff,transparent),radial-gradient(1px 1px at 55% 48%,#fff,transparent),
+  radial-gradient(1px 1px at 84% 42%,#cfe4ff,transparent),radial-gradient(1px 1px at 20% 60%,#fff,transparent),radial-gradient(1px 1px at 70% 62%,#fff,transparent);
+  animation:twinkle 6s ease-in-out infinite alternate}
+.soon-in{position:relative;max-width:720px}
+.soon .orbit{width:min(160px,42vw);margin-bottom:16px}
+.soon-logo{font-family:"Cormorant Garamond",serif;font-size:42px;letter-spacing:.42em;margin:0 0 4px;padding-left:.42em}
+.soon .en{color:#bcd8f7;letter-spacing:.4em;text-transform:uppercase;font-style:normal;font-size:12px}
+.soon h1{color:#fff;font-size:clamp(22px,4.6vw,38px);margin:18px 0 10px}
+.soon h1 span{display:inline-block}
+.soon-date{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,7vw,54px);letter-spacing:.12em;margin:14px 0 6px}
+.soon-date small{font-size:.4em;letter-spacing:.3em;color:#bcd8f7}
+.cd{display:flex;justify-content:center;gap:14px;margin:6px 0 22px}
+.cd div{min-width:68px;padding:10px 6px;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px)}
+.cd b{display:block;font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:500;line-height:1.1}
+.cd span{font-size:10px;letter-spacing:.2em;color:rgba(220,235,255,.7)}
+.soon-text{color:rgba(230,240,255,.85);font-size:14.5px;margin:0 0 22px}
+.soon .btn{background:#fff;color:#0f1c3a;border-color:#fff}
+.soon .btn.ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5)}

@@ -20,6 +20,8 @@ export const SITE = {
   payLink: "",
   // KUU公式LINE（運営への連絡窓口）
   line: "https://lin.ee/NlWRY0V",
+  // 公開日（この日時まではトップが「Coming soon」になる。?preview=kuu で中を確認できる）
+  releaseAt: "2026-12-01T00:00:00+09:00",
   url: "https://meisou-community.vercel.app",
 };
 export const joinHref = () => SITE.payLink || "/signup";
