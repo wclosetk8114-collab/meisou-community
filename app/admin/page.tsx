@@ -6,6 +6,7 @@ import * as A from "@/app/actions/admin";
 import { Questions, Knowledge } from "@/components/AdminQA";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 const TABS = [["members", "会員"], ["posts", "記事・音声"], ["live", "思想講座"], ["lessons", "動画講座"], ["questions", "質問"], ["knowledge", "参考資料"]];
 
@@ -91,11 +92,14 @@ async function Posts({ edit }: { edit?: string }) {
         <h3>{cur ? "記事・音声を直す" : "記事・音声を投稿する"}</h3>
         <input type="hidden" name="id" value={cur?.id || ""} />
         <label>種類</label>
-        <select name="kind" defaultValue={cur?.kind || "article"}><option value="article">メディア記事</option><option value="audio">音声</option></select>
+        <select name="kind" defaultValue={cur?.kind || "article"}><option value="article">メディア記事</option><option value="radio">ラジオ（音声＋まとめ記事）</option><option value="audio">音声</option></select>
         <label>タイトル</label><input name="title" defaultValue={cur?.title} required />
-        <label>音声のURL（音声のとき。Googleドライブの共有リンク・mp3のURL・YouTubeなど）</label>
+        <label>音声のURL（ラジオ・音声のとき。stand.fm・Googleドライブの共有リンク・mp3・YouTubeなど）</label>
         <input name="media_url" defaultValue={cur?.media_url} placeholder="https://" />
-        <label>本文（記事のとき。音声なら説明）</label><textarea name="body" defaultValue={cur?.body} style={{ minHeight: 220 }} />
+        <label>文字起こし（ラジオのとき。貼るだけでOK）</label>
+        <textarea name="transcript" defaultValue={cur?.transcript || ""} style={{ minHeight: 140 }} placeholder="ラジオの文字起こしをそのまま貼ってください" />
+        <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="ai" defaultChecked={!cur} style={{ width: "auto" }} /> 文字起こしから、AIで記事にまとめる（下の本文は上書きされます）</label>
+        <label>本文（記事のとき。音声なら説明。AIでまとめたあと、ここで直せます）</label><textarea name="body" defaultValue={cur?.body} style={{ minHeight: 220 }} />
         <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="published" defaultChecked={cur ? cur.published : true} style={{ width: "auto" }} /> 公開する</label>
         <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="notify" defaultChecked={!cur} style={{ width: "auto" }} /> 保存したら、会員にLINEで知らせる</label>
         <div className="spacer" /><button className="btn small">保存する</button> {cur && <Link href="/admin?tab=posts" className="muted">新規にもどる</Link>}

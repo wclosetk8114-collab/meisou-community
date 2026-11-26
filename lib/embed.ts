@@ -11,6 +11,8 @@ export function videoEmbed(url: string): { type: "iframe" | "video"; src: string
 }
 export function audioEmbed(url: string): { type: "iframe" | "audio"; src: string } | null {
   if (!url) return null;
+  const sf = url.match(/stand\.fm\/(?:embed\/)?episodes\/([\w]+)/);
+  if (sf) return { type: "iframe", src: `https://stand.fm/embed/episodes/${sf[1]}` };
   const m = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
   if (m) return { type: "iframe", src: `https://drive.google.com/file/d/${m[1]}/preview` };
   const v = videoEmbed(url);

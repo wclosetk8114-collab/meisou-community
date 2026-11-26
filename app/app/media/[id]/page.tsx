@@ -17,9 +17,11 @@ export default async function Article({ params }: { params: Promise<{ id: string
       <Link href="/app/media" className="muted">← メディア一覧</Link>
       <div style={{ marginTop: 16 }}><Banner id={p.id} title={p.title} image={p.image_url} /></div>
       <p className="muted" style={{ marginTop: 20 }}>{p.d}</p>
+      {p.kind === "radio" && <span className="tag gold" style={{ fontSize: 12 }}>つっちーのラジオ</span>}
       <h1 style={{ fontSize: 28 }}>{p.title}</h1>
-      {a && (a.type === "audio" ? <audio controls src={a.src} style={{ width: "100%" }} /> : <iframe src={a.src} style={{ width: "100%", height: 120, border: 0 }} allow="autoplay" />)}
-      <div className="card prose" style={{ marginTop: 16 }}>{p.body}</div>
+      {a && (a.type === "audio" ? <audio controls src={a.src} style={{ width: "100%" }} /> : <iframe src={a.src} style={{ width: "100%", height: a.src.includes("stand.fm") ? 190 : 120, border: 0, borderRadius: 12 }} allow="autoplay" />)}
+      {p.kind === "radio" && <p className="label" style={{ marginTop: 20 }}>まとめ記事</p>}
+      <div className="card prose" style={{ marginTop: p.kind === "radio" ? 6 : 16 }}>{p.body}</div>
     </article>
   );
 }

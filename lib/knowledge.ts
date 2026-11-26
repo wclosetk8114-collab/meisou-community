@@ -106,3 +106,22 @@ export async function answerWithAI(question: string) {
   const refs = docs.filter((d) => d.url).slice(0, 3).map((d) => ({ title: d.title, url: d.url }));
   return { text, refs };
 }
+
+/** ラジオの文字起こしを、読みやすい記事にまとめる */
+export async function radioToArticle(title: string, transcript: string) {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key) throw new Error("ANTHROPIC_API_KEY が未設定です");
+  const r = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" },
+    body: JSON.stringify({
+      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
+      max_tokens: 3000,
+      system: "あなたは瞑想コミュニティ「くう（KUU）」の編集者です。運営者つっちーが話したラジオの文字起こしを、会員が読む記事にまとめます。話した内容だけを使い、話していないことは足さない。つっちーの一人称と、やわらかい話し言葉の雰囲気は残す。えー・あのー等のつなぎ言葉や言い直しは消す。短い文、ふつうの言葉。構成：最初に2〜3行の「この回のまとめ」、そのあと見出し（■で始める行）を3〜5個立てて本文、最後に「今日やってみること」を1つ。マークダウン記号（#や**）は使わない。",
+      messages: [{ role: "user", content: `タイトル：${title}\n\n文字起こし：\n${transcript.slice(0, 40000)}` }],
+    }),
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j?.error?.message || `AIの呼び出しに失敗しました（${r.status}）`);
+  return (j.content || []).map((c: any) => c.text || "").join("").trim();
+}

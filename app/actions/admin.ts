@@ -39,15 +39,24 @@ export async function addMember(fd: FormData) {
 export async function savePost(fd: FormData) {
   await requireAdmin();
   const id = s(fd, "id");
-  const vals = [s(fd, "kind") === "audio" ? "audio" : "article", s(fd, "title"), String(fd.get("body") ?? ""), s(fd, "media_url"), fd.get("published") === "on"];
-  if (!vals[1]) redirect(`/admin?tab=posts&e=${encodeURIComponent("タイトルを入れてください")}`);
+  const kind = ["audio", "radio"].includes(s(fd, "kind")) ? s(fd, "kind") : "article";
+  const transcript = String(fd.get("transcript") ?? "").trim();
+  let body = String(fd.get("body") ?? "");
+  if (!s(fd, "title")) redirect(`/admin?tab=posts&e=${encodeURIComponent("タイトルを入れてください")}`);
+  if (transcript && fd.get("ai") === "on") {
+    let made = "";
+    try { const { radioToArticle } = await import("@/lib/knowledge"); made = await radioToArticle(s(fd, "title"), transcript); }
+    catch (e: any) { redirect(`/admin?tab=posts&e=${encodeURIComponent("AIでまとめられませんでした：" + (e?.message || ""))}`); }
+    body = made;
+  }
+  const vals = [kind, s(fd, "title"), body, s(fd, "media_url"), fd.get("published") === "on", transcript || null];
   let postId = id;
-  if (id) await q("update meisou.posts set kind=$1,title=$2,body=$3,media_url=$4,published=$5 where id=$6", [...vals, id]);
-  else postId = (await q<{ id: string }>("insert into meisou.posts (kind,title,body,media_url,published) values ($1,$2,$3,$4,$5) returning id", vals))[0].id;
+  if (id) await q("update meisou.posts set kind=$1,title=$2,body=$3,media_url=$4,published=$5,transcript=coalesce($6,transcript) where id=$7", [...vals, id]);
+  else postId = (await q<{ id: string }>("insert into meisou.posts (kind,title,body,media_url,published,transcript) values ($1,$2,$3,$4,$5,$6) returning id", vals))[0].id;
   if (fd.get("notify") === "on" && vals[4]) {
     const isAudio = vals[0] === "audio";
     const excerpt = String(vals[2]).replace(/\s+/g, " ").slice(0, 90);
-    const n = await pushToMembers(`${isAudio ? "新しい音声" : "新しい記事"}が届きました\n\n「${vals[1]}」${excerpt ? `\n${excerpt}…` : ""}\n\n${SITE.url}${isAudio ? "/app/audio" : `/app/media/${postId}`}`);
+    const n = await pushToMembers(`${isAudio ? "新しい音声" : vals[0] === "radio" ? "新しいラジオ" : "新しい記事"}が届きました\n\n「${vals[1]}」${excerpt ? `\n${excerpt}…` : ""}\n\n${SITE.url}${isAudio ? "/app/audio" : `/app/media/${postId}`}`);
     done("posts", `保存して、LINEで${n}人に知らせました`);
   }
   done("posts");
