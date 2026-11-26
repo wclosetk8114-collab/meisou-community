@@ -5,6 +5,8 @@ import { SITE, yen, joinHref } from "@/lib/site";
 
 
 
+export const revalidate = 300;
+
 const compare: [string, boolean, boolean, boolean, boolean][] = [
   ["イベント・最新情報のお知らせ", true, true, true, true],
   ["毎日の瞑想タイマーと記録", false, true, false, true],
@@ -25,6 +27,9 @@ export default function Home() {
     <>
       <PublicHeader dark />
       <main>
+        {Date.now() < Date.parse("2026-11-29T00:00:00+09:00") && (
+          <div className="preopen">期間限定 先行オープン中（11/28まで）<span>・正式オープンは12/1です</span></div>
+        )}
         <section className="hero">
           <span className="vert l">静けさにもどる</span>
           <span className="vert r">視座が、ひらく</span>

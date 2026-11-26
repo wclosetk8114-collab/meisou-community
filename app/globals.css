@@ -219,3 +219,29 @@ header.hdr{transition:background .3s}
 .sns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .sns a{font-size:12.5px;letter-spacing:.06em;text-decoration:none;color:var(--ink2);padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.6);transition:all .2s}
 .sns a:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ===== 育つ竜 ===== */
+.dragon{display:block;margin:4px auto 0;overflow:visible}
+.dg-wobble{transform-origin:100px 175px;animation:dgWob 3.2s ease-in-out infinite}
+.dragon-crack .dg-wobble{animation-duration:1.4s}
+@keyframes dgWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+.dg-float{animation:dgFloat 3.6s ease-in-out infinite}
+@keyframes dgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.dragon .dg-float{transform-box:fill-box}
+.dg-wing{transform-origin:100px 120px;animation:dgWing 1.6s ease-in-out infinite}
+@keyframes dgWing{0%,100%{transform:scaleX(1)}50%{transform:scaleX(1.06)}}
+.dg-eyes{transform-origin:100px 82px;animation:dgBlink 5s infinite}
+@keyframes dgBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.dg-glow{animation:twinkle 1.5s ease-in-out infinite alternate}
+.dg-aura{animation:breathe 6s ease-in-out infinite;transform-origin:100px 105px}
+.dg-stars{animation:twinkle 2s ease-in-out infinite alternate}
+.dg-bar{height:8px;border-radius:99px;background:rgba(120,170,230,.18);overflow:hidden}
+.dg-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#9fd0ff,#4f86c9)}
+.dg-steps{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.dg-steps span{width:8px;height:8px;border-radius:50%;background:rgba(120,170,230,.25)}
+.dg-steps span.on{background:#4f86c9}
+.preopen{margin:14px auto 0;max-width:640px;text-align:center;padding:10px 16px;border-radius:99px;background:linear-gradient(90deg,#4f86c9,#7d6fd6);color:#fff;font-size:14px;font-weight:600;box-shadow:0 6px 20px rgba(79,134,201,.25)}
+.preopen span{font-weight:400;opacity:.9}
+.tm-opts{margin-top:14px}
+.tm-opts label{display:block;text-align:center;margin:12px 0 6px;font-size:13px}
+.tm-opts .chips .chip{font-size:12.5px}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireMember } from "@/lib/auth";
 import { SITE } from "@/lib/site";
 import { myStats } from "@/lib/stats";
+import DragonCard from "@/components/DragonCard";
 import { q, one } from "@/lib/db";
 
 export default async function AppHome() {
@@ -41,6 +42,7 @@ export default async function AppHome() {
         <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalDays}</div><span className="muted">日やった</span></div>
         <div className="card flat" style={{ textAlign: "center", padding: 20 }}><div className="num">{s.totalMin}</div><span className="muted">分の合計</span></div>
       </div>
+      <Link href="/app/meditate" style={{ display: "block", marginTop: 18, textDecoration: "none", color: "inherit" }}><DragonCard totalMin={s.totalMin} compact /></Link>
       <a href={SITE.openchat} target="_blank" rel="noreferrer" className="card row" style={{ justifyContent: "space-between", marginTop: 18, textDecoration: "none", color: "inherit" }}>
         <div><p className="label" style={{ marginBottom: 2 }}>Open chat</p><h3 style={{ margin: 0 }}>会員向けオープンチャット</h3><span className="muted">KUUの会員だけが入れるLINEのオープンチャットです</span></div>
         <span className="btn small" style={{ background: "#06c755", borderColor: "#06c755" }}>LINEで参加する</span>

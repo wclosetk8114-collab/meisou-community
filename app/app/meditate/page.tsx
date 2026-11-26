@@ -1,4 +1,5 @@
 import Timer from "@/components/Timer";
+import DragonCard from "@/components/DragonCard";
 import { MOODS } from "@/lib/moods";
 import { requireMember } from "@/lib/auth";
 import { myStats } from "@/lib/stats";
@@ -25,7 +26,8 @@ export default async function Meditate() {
       <div className="grid" style={{ alignItems: "start" }}>
         <Timer />
         <div>
-          <div className="card">
+          <DragonCard totalMin={s.totalMin} />
+          <div className="card" style={{ marginTop: 18 }}>
             <div className="row" style={{ justifyContent: "space-around", textAlign: "center" }}>
               <div><div className="price">{s.streak}</div><span className="muted">日連続</span></div>
               <div><div className="price">{s.totalDays}</div><span className="muted">日やった</span></div>
