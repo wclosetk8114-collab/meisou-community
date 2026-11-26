@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Countdown from "@/components/Countdown";
+import Intro from "@/components/Intro";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function ComingSoon() {
   return (
+    <>
     <main className="soon">
       <div className="soon-in">
         <div className="orbit"><span /><span /><span /><div className="sat"><i /></div></div>
@@ -23,7 +25,23 @@ export default function ComingSoon() {
           <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">KUU公式LINE</a>
         </div>
       </div>
-      <footer style={{ color: "rgba(220,235,255,.6)", padding: "30px 0 40px" }}>© {SITE.en}</footer>
+      <a href="#kyojigen" className="soon-more">KUUについて ↓</a>
     </main>
+    <div className="soon-intro">
+      <Intro />
+      <section className="section" style={{ paddingTop: 20, textAlign: "center" }}>
+        <div className="narrow">
+          <p className="label" style={{ justifyContent: "center" }}><b>OPEN</b> 2026.12.1</p>
+          <h2>12月1日、はじまります。</h2>
+          <p className="muted">料金やお申し込みは、オープンの日にこのページでご案内します。<br />いち早く知りたい方は、無料オープンチャットへどうぞ。</p>
+          <div className="row" style={{ justifyContent: "center", gap: 12, marginTop: 18 }}>
+            <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn">無料オープンチャットに入る</a>
+            <a href={SITE.line} target="_blank" rel="noreferrer" className="btn ghost noarrow">KUU公式LINE</a>
+          </div>
+        </div>
+      </section>
+      <footer>© {SITE.en}</footer>
+    </div>
+    </>
   );
 }

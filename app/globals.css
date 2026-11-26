@@ -214,3 +214,5 @@ header.hdr{transition:background .3s}
 .soon-text{color:rgba(230,240,255,.85);font-size:14.5px;margin:0 0 22px}
 .soon .btn{background:#fff;color:#0f1c3a;border-color:#fff}
 .soon .btn.ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5)}
+.soon-more{position:relative;color:rgba(230,240,255,.85);text-decoration:none;font-size:13px;letter-spacing:.2em;margin:28px 0 36px;display:inline-block}
+.soon{min-height:100svh}
