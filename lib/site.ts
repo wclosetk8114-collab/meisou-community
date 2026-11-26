@@ -20,6 +20,17 @@ export const SITE = {
   payLink: "",
   // KUU公式LINE（運営への連絡窓口）
   line: "https://lin.ee/NlWRY0V",
+  // つっちー（土屋）の各種SNS（案内人のところに表示）
+  sns: [
+    { name: "公式HP", url: "https://tsucchi-site.vercel.app" },
+    { name: "note", url: "https://note.com/kai8114" },
+    { name: "Instagram", url: "https://www.instagram.com/chiho.8114?stkn=MW8xc290aTA1ZGpieA%3D%3D&utm_source=qr" },
+    { name: "Threads", url: "https://www.threads.net/@chiho.8114" },
+    { name: "X", url: "https://x.com/Chiho8114" },
+    { name: "YouTube", url: "https://www.youtube.com/@%E3%81%A4%E3%81%A3%E3%81%A1%E3%83%BCMETAPEACE" },
+    { name: "TikTok", url: "https://www.tiktok.com/@chiho.8114" },
+    { name: "Substack", url: "https://chiho8114.substack.com" },
+  ],
   // 公開日（この日時まではトップが「Coming soon」になる。?preview=kuu で中を確認できる）
   releaseAt: "2026-12-01T00:00:00+09:00",
   url: "https://meisou-community.vercel.app",

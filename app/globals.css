@@ -216,3 +216,6 @@ header.hdr{transition:background .3s}
 .soon .btn.ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5)}
 .soon-more{position:relative;color:rgba(230,240,255,.85);text-decoration:none;font-size:13px;letter-spacing:.2em;margin:28px 0 36px;display:inline-block}
 .soon{min-height:100svh}
+.sns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.sns a{font-size:12.5px;letter-spacing:.06em;text-decoration:none;color:var(--ink2);padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.6);transition:all .2s}
+.sns a:hover{border-color:var(--gold);color:var(--gold)}
