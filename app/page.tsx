@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 const compare: [string, boolean, boolean, boolean, boolean][] = [
   ["イベント・最新情報のお知らせ", true, true, true, true],
-  ["つっちーのラジオが聞ける", true, true, true, true],
+  ["つっちーのラジオ（瞑想・感情の手放し方など）", true, true, true, true],
   ["毎日の瞑想タイマーと記録", false, true, false, true],
   ["一緒に瞑想する仲間・募集", false, true, false, true],
   ["会員だけのメディア・音声", false, true, false, true],
@@ -59,7 +59,7 @@ export default function Home() {
                 <p className="en">Free</p>
                 <h3 style={{ margin: "4px 0" }}>無料</h3>
                 <p className="price" style={{ fontSize: 34 }}>0円</p>
-                <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届き、つっちーのラジオも聞けます。</p>
+                <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届きます。<br /><b>つっちーのラジオ</b>も聞けます。瞑想のこと、瞑想を通じた自分との向き合い方、感情の捉え方や手放し方を話しています。</p>
                 <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small ghost">LINEで参加する</a>
               </div>
               <div className="card" style={{ border: "1px solid var(--gold)" }}>
