@@ -12,12 +12,13 @@ export default async function CourseLP() {
       <PublicHeader />
       <main className="narrow" style={{ paddingTop: 48 }}>
         <p className="en">MEDITATION COURSE</p>
-        <h1>瞑想 動画講座</h1>
+        <h1>瞑想 動画講座 <span className="soon-tag">Coming soon</span></h1>
         <p>毎日の瞑想で頭がからっぽになってきたら、次の段階へ。<br />思考と視座をひろげる瞑想を、全{SITE.lessonsCount}回の動画で学びます。</p>
         <div className="card" style={{ textAlign: "center", margin: "28px 0" }}>
           <p className="price">{yen(SITE.course)}<small>（税別）</small></p>
           <p className="muted">税込 {yen(SITE.courseTaxIn)}｜動画＋資料｜くり返し見られます</p>
-          <p className="muted">お申し込みは<a href={SITE.line} target="_blank" rel="noreferrer">KUU公式LINE</a>からご連絡ください。受講が始まると、会員ページに講座が開きます。</p>
+          <p className="mincho" style={{ fontSize: 18, margin: "14px 0 10px" }}>ただいま準備中です</p>
+          <a href={SITE.line} target="_blank" rel="noreferrer" className="btn gold">公開のお知らせをLINEで受け取る</a>
         </div>
         <h2>内容</h2>
         <div className="card">

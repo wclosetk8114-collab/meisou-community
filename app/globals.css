@@ -245,3 +245,6 @@ header.hdr{transition:background .3s}
 .tm-opts{margin-top:14px}
 .tm-opts label{display:block;text-align:center;margin:12px 0 6px;font-size:13px}
 .tm-opts .chips .chip{font-size:12.5px}
+.soon-tag{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 10px;border-radius:99px;font-size:11px;letter-spacing:.08em;font-weight:600;background:rgba(79,134,201,.12);color:#3c6fb0;border:1px solid rgba(79,134,201,.35);font-family:inherit}
+.soon-tag.dark{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.4)}
+h1 .soon-tag,h2 .soon-tag{font-size:12px}

@@ -69,18 +69,19 @@ export default function Home() {
                 <a href={joinHref()} className="btn">初月無料ではじめる</a>
               </div>
               <div className="card">
-                <p className="en">Video course</p>
+                <p className="en">Video course <span className="soon-tag">Coming soon</span></p>
                 <h3 style={{ margin: "4px 0" }}>動画講座プラン</h3>
                 <p className="price" style={{ fontSize: 34 }}>{yen(SITE.course)}<small>（税別）／税込 {yen(SITE.courseTaxIn)}</small></p>
                 <p className="muted">全{SITE.lessonsCount}回の動画と資料で、思考と視座をひろげる瞑想を体系的に学びたい人へ。くり返し見られます。</p>
-                <a href="/course" className="btn ghost">内容を見る</a>
+                <span className="btn ghost" style={{ opacity: .6, cursor: "default" }}>準備中</span>
+                <a href={SITE.line} target="_blank" rel="noreferrer" className="muted" style={{ fontSize: 12.5, display: "block", marginTop: 8 }}>公開のお知らせをLINEで受け取る</a>
               </div>
               <div className="card" style={{ background: "linear-gradient(160deg,#0f1c3a,#24427e)", color: "#fff", border: "1px solid rgba(255,255,255,.2)" }}>
-                <p className="en" style={{ color: "#bcd8f7" }}>Accompany</p>
+                <p className="en" style={{ color: "#bcd8f7" }}>Accompany <span className="soon-tag dark">Coming soon</span></p>
                 <h3 style={{ margin: "4px 0", color: "#fff" }}>伴走プラン</h3>
                 <p className="price" style={{ fontSize: 34, color: "#fff" }}>{yen(SITE.bansou)}<small style={{ color: "rgba(230,240,255,.8)" }}>／{SITE.bansouMonths}ヶ月（税別）</small></p>
                 <p style={{ color: "rgba(230,240,255,.85)", fontSize: 13.5 }}>つっちーと月{SITE.bansouPerMonth}回のオンラインで、本気で変わりたい人へ。会員の機能と動画講座もすべて込み。{SITE.bansouMonths}ヶ月後からは月額{yen(SITE.monthly)}に。</p>
-                <a href="#bansou" className="btn" style={{ background: "#fff", color: "#0f1c3a", borderColor: "#fff" }}>くわしく見る</a>
+                <a href="#bansou" className="btn" style={{ background: "#fff", color: "#0f1c3a", borderColor: "#fff" }}>準備中・くわしく見る</a>
               </div>
             </div>
             <div className="card" style={{ marginTop: 18, overflowX: "auto" }}>
@@ -117,14 +118,14 @@ export default function Home() {
               </div>
               <p className="muted" style={{ marginTop: 18, fontSize: 12.5 }}>退会はマイページからいつでも。退会すると会員ページは見られなくなります。</p>
             </div>
-            <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）</Link></p>
+            <p style={{ marginTop: 34 }}><Link href="/course">もっと深めたい方へ　動画講座（全{SITE.lessonsCount}回）・Coming soon</Link></p>
           </div>
         </section>
 
         <section id="bansou" className="section" style={{ paddingTop: 20 }}>
           <div className="narrow">
             <p className="label"><b>09</b> Accompany</p>
-            <h2>伴走プラン</h2>
+            <h2>伴走プラン <span className="soon-tag">Coming soon</span></h2>
             <p>ひとりで続けるより、確実に変わりたい人へ。<br />{SITE.bansouMonths}ヶ月間、つっちーが月{SITE.bansouPerMonth}回オンラインでとなりを走ります。</p>
             <div className="flow" style={{ marginTop: 20, gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))" }}>
               <div><h3>手放す</h3><p className="muted">いま頭の中にあるものを一緒に整理。あなたに合う瞑想のやり方を決めます。</p></div>
@@ -142,8 +143,9 @@ export default function Home() {
                 </tbody>
               </table>
               <div style={{ textAlign: "center", marginTop: 20 }}>
-                <a href={SITE.line} target="_blank" rel="noreferrer" className="btn gold">KUU公式LINEで相談する</a>
-                <p className="muted" style={{ marginTop: 10, fontSize: 12.5 }}>お申し込み・ご相談は、LINEから気軽にどうぞ。</p>
+                <p className="mincho" style={{ fontSize: 18, margin: "0 0 12px" }}>ただいま準備中です</p>
+                <a href={SITE.line} target="_blank" rel="noreferrer" className="btn gold">公開のお知らせをLINEで受け取る</a>
+                <p className="muted" style={{ marginTop: 10, fontSize: 12.5 }}>はじまったら、KUU公式LINEでいちばんにお知らせします。</p>
               </div>
             </div>
           </div>
