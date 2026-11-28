@@ -28,10 +28,18 @@ export async function currentMember(): Promise<Member | null> {
     return null;
   }
 }
-/** 会員ページ用：ログイン＋有効会員でなければ入れない */
+/** 無料会員も入れるページ用（瞑想・記録・竜） */
+export async function requireUser() {
+  const m = await currentMember();
+  if (!m) redirect("/login");
+  if (m.status !== "active" && m.status !== "free" && !m.is_admin) redirect("/left");
+  return m;
+}
+/** 会員ページ用：ログイン＋有効会員でなければ入れない（無料会員は案内ページへ） */
 export async function requireMember() {
   const m = await currentMember();
   if (!m) redirect("/login");
+  if (m.status === "free" && !m.is_admin) redirect("/app/upgrade");
   if (m.status !== "active" && !m.is_admin) redirect("/left");
   return m;
 }

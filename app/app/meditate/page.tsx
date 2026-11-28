@@ -1,13 +1,13 @@
 import Timer from "@/components/Timer";
 import DragonCard from "@/components/DragonCard";
 import { MOODS } from "@/lib/moods";
-import { requireMember } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
 import { myStats } from "@/lib/stats";
 import { q, one } from "@/lib/db";
 import { addChangeNote, deleteChangeNote } from "@/app/actions/member";
 
 export default async function Meditate() {
-  const m = await requireMember();
+  const m = await requireUser();
   const s = await myStats(m.id);
   const dg = await one<{ dragon_name: string | null; dragon_egg: string | null }>("select dragon_name, dragon_egg from meisou.members where id=$1", [m.id]).catch(() => null);
   const [y, mo] = s.today.split("-").map(Number);

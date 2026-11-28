@@ -2,11 +2,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { q, one } from "@/lib/db";
-import { requireMember } from "@/lib/auth";
+import { requireMember, requireUser } from "@/lib/auth";
 import { answerWithAI } from "@/lib/knowledge";
 
 export async function logMeditation(minutes: number, note: string, change = "", mood = "") {
-  const m = await requireMember();
+  const m = await requireUser();
   const min = Math.max(0, Math.min(180, Math.round(Number(minutes) || 0)));
   await q("insert into meisou.meditation_logs (member_id, day, minutes, note) values ($1, (now() at time zone 'Asia/Tokyo')::date, $2, $3)",
     [m.id, min, String(note || "").slice(0, 300)]);
@@ -19,13 +19,13 @@ export async function logMeditation(minutes: number, note: string, change = "", 
 
 /** 変化ノート（自分だけに見える）をタイマーなしで書く */
 export async function addChangeNote(fd: FormData) {
-  const m = await requireMember();
+  const m = await requireUser();
   const body = String(fd.get("body") || "").trim().slice(0, 2000), mood = String(fd.get("mood") || "").slice(0, 20);
   if (body || mood) await q("insert into meisou.change_notes (member_id, mood, body) values ($1,$2,$3)", [m.id, mood, body]);
   revalidatePath("/app/meditate");
 }
 export async function deleteChangeNote(fd: FormData) {
-  const m = await requireMember();
+  const m = await requireUser();
   await q("delete from meisou.change_notes where id=$1 and member_id=$2", [String(fd.get("id")), m.id]);
   revalidatePath("/app/meditate");
 }
@@ -91,7 +91,7 @@ export async function toggleRemind() {
 
 /** 育つ竜の名前・卵の種類 */
 export async function setDragon(name: string, egg: string) {
-  const m = await requireMember();
+  const m = await requireUser();
   const { EGGS, HATCH_MIN } = await import("@/lib/dragon");
   const nm = String(name || "").replace(/\s+/g, " ").trim().slice(0, 20);
   const total = await one<{ t: number }>("select coalesce(sum(minutes),0)::int t from meisou.meditation_logs where member_id=$1", [m.id]);

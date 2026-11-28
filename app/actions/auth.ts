@@ -14,6 +14,7 @@ export async function login(fd: FormData) {
     "select id,password_hash,status,is_admin from meisou.members where email=$1", [email]);
   if (!m || !(await bcrypt.compare(password, m.password_hash))) back("/login", "メールアドレスかパスワードがちがいます");
   await startSession(m!.id);
+  if (m!.status === "free") redirect("/app/meditate");
   if (m!.status !== "active" && !m!.is_admin) redirect("/left");
   redirect("/app");
 }
@@ -88,4 +89,30 @@ export async function changePassword(fd: FormData) {
   if (next.length < 8) redirect("/app/account?e=" + encodeURIComponent("新しいパスワードは8文字以上にしてください"));
   await q("update meisou.members set password_hash=$1 where id=$2", [await bcrypt.hash(next, 10), m.id]);
   redirect("/app/account?ok=" + encodeURIComponent("パスワードを変更しました"));
+}
+
+/** 無料登録：名前・メール・パスワードだけ。ゲストで測った記録も引きつぐ */
+export async function signupFree(fd: FormData) {
+  const name = String(fd.get("name") || "").trim().slice(0, 30);
+  const email = String(fd.get("email") || "").trim().toLowerCase();
+  const password = String(fd.get("password") || "");
+  const fail = (msg: string) => redirect(`/join-free?e=${encodeURIComponent(msg)}`);
+  if (!name || !email || !password) fail("すべて入力してください");
+  if (password.length < 8) fail("パスワードは8文字以上にしてください");
+  const exists = await one("select id from meisou.members where email=$1", [email]);
+  if (exists) fail("このメールアドレスはすでに登録されています。ログインしてください");
+  const hash = await bcrypt.hash(password, 10);
+  const m = await one<{ id: string }>("insert into meisou.members (email,password_hash,name,status) values ($1,$2,$3,'free') returning id", [email, hash, name]);
+  // ゲストの記録（この端末で測ったぶん）を引きつぐ
+  let logs: { d: string; min: number }[] = [];
+  try { logs = JSON.parse(String(fd.get("guest") || "[]")); } catch {}
+  for (const l of (Array.isArray(logs) ? logs : []).slice(-60)) {
+    const min = Math.max(1, Math.min(180, Math.round(Number(l?.min) || 0)));
+    const d = /^\d{4}-\d{2}-\d{2}$/.test(String(l?.d)) ? String(l.d) : null;
+    if (!d) continue;
+    await q("insert into meisou.meditation_logs (member_id, day, minutes, note) values ($1,$2,$3,'')", [m!.id, d, min]);
+  }
+  await startSession(m!.id);
+  const nextUrl = String(fd.get("next") || "");
+  redirect(/^\/media\/[0-9a-f-]{36}$/.test(nextUrl) ? nextUrl : "/app/meditate?welcome=1");
 }

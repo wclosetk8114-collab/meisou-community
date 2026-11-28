@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { requireMember } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
 import { one } from "@/lib/db";
 import { audioEmbed } from "@/lib/embed";
 import Banner from "@/components/Banner";
 
 export default async function Article({ params }: { params: Promise<{ id: string }> }) {
-  await requireMember();
+  await requireUser();
   const { id } = await params;
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound();
   const p = await one<any>("select *, to_char(created_at at time zone 'Asia/Tokyo','YYYY.MM.DD') d from meisou.posts where id=$1 and published", [id]);

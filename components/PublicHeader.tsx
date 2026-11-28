@@ -7,7 +7,9 @@ export default function PublicHeader({ dark = false }: { dark?: boolean }) {
         <Logo light={dark} />
         <nav className="nav">
           <Link href="/#kyojigen" className="pc">虚次元とは</Link>
-          <Link href="/course">動画講座</Link>
+          <Link href="/media" className="pc">メディア</Link>
+          <Link href="/try">無料で瞑想</Link>
+          <Link href="/course" className="pc">動画講座</Link>
           <Link href="/#bansou">伴走講座</Link>
           <Link href="/login">ログイン</Link>
         </nav>

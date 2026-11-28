@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { requireMember } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { myStats } from "@/lib/stats";
 import DragonCard from "@/components/DragonCard";
 import { q, one } from "@/lib/db";
 
 export default async function AppHome() {
-  const m = await requireMember();
+  const m = await requireUser();
+  if (m.status === "free" && !m.is_admin) redirect("/app/meditate");
   const s = await myStats(m.id);
   const dg = await one<{ dragon_name: string | null; dragon_egg: string | null }>("select dragon_name, dragon_egg from meisou.members where id=$1", [m.id]).catch(() => null);
   const live = await one<{ title: string; d: string; t: string }>(

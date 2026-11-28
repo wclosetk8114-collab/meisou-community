@@ -10,9 +10,11 @@ export const revalidate = 300;
 const compare: [string, boolean, boolean, boolean, boolean][] = [
   ["イベント・最新情報のお知らせ", true, true, true, true],
   ["つっちーのラジオ（瞑想・感情の手放し方など）", true, true, true, true],
-  ["毎日の瞑想タイマーと記録", false, true, false, true],
+  ["瞑想タイマー（呼吸法・ヒーリング音楽）", true, true, false, true],
+  ["記録と、育つ竜（無料登録で）", true, true, false, true],
+  ["メディア記事・ラジオのまとめ（無料登録で全部読める）", true, true, false, true],
   ["一緒に瞑想する仲間・募集", false, true, false, true],
-  ["会員だけのメディア・音声", false, true, false, true],
+  ["会員だけの音声（ガイド瞑想など）", false, true, false, true],
   ["月1回 思想講座（ライブ＋録画）", false, true, false, true],
   ["つっちーAIに質問", false, true, false, true],
   ["LINEで毎日のお知らせ・記録", false, true, false, true],
@@ -60,7 +62,9 @@ export default function Home() {
                 <h3 style={{ margin: "4px 0" }}>無料</h3>
                 <p className="price" style={{ fontSize: 34 }}>0円</p>
                 <p className="muted">まずは雰囲気を知りたい人へ。イベントや最新情報が届きます。<br /><b>つっちーのラジオ</b>も聞けます。瞑想のこと、瞑想を通じた自分との向き合い方、感情の捉え方や手放し方を話しています。</p>
-                <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small ghost">LINEで参加する</a>
+                <p className="muted" style={{ fontSize: 13 }}>瞑想タイマーは登録なしで使えます。名前とメールだけの無料登録で、メディアの記事が全部読めて、記録と竜も残せます。</p>
+                <a href="/try" className="btn small">無料で瞑想する</a>
+                <a href={SITE.freeOpenchat} target="_blank" rel="noreferrer" className="btn small ghost" style={{ marginTop: 8 }}>オープンチャットに参加</a>
               </div>
               <div className="card" style={{ border: "1px solid var(--gold)" }}>
                 <p className="en">Member</p>

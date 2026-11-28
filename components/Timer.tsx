@@ -99,7 +99,20 @@ function startMusic(ctx: AudioContext, key: string, out: GainNode) {
   return () => { nodes.forEach((n) => { try { n.stop(); } catch {} }); timers.forEach((t) => clearInterval(t)); };
 }
 
-export default function Timer() {
+const GUEST_KEY = "kuu_guest_logs";
+export function guestLogs(): { d: string; min: number }[] {
+  try { return JSON.parse(localStorage.getItem(GUEST_KEY) || "[]"); } catch { return []; }
+}
+function addGuestLog(min: number) {
+  try {
+    const d = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
+    const list = guestLogs(); list.push({ d, min });
+    localStorage.setItem(GUEST_KEY, JSON.stringify(list.slice(-60)));
+    window.dispatchEvent(new Event("kuu-guest"));
+  } catch {}
+}
+
+export default function Timer({ guest = false }: { guest?: boolean }) {
   const [len, setLen] = useState(10);
   const [left, setLeft] = useState(10 * 60);
   const [state, setState] = useState<"idle" | "run" | "pause" | "done">("idle");
@@ -169,7 +182,7 @@ export default function Timer() {
   };
   const pick = (n: number) => { fadeOut(); setLen(n); setLeft(n * 60); setState("idle"); setSaved(false); };
   const save = async (minutes: number) => {
-    await logMeditation(minutes, note, change, mood);
+    if (guest) addGuestLog(minutes); else await logMeditation(minutes, note, change, mood);
     setSaved(true); setNote(""); setChange(""); setMood("");
   };
   const mm = String(Math.floor(left / 60)).padStart(2, "0"), ss = String(left % 60).padStart(2, "0");
@@ -230,6 +243,7 @@ export default function Timer() {
       {state === "done" && !saved && (
         <div style={{ textAlign: "left" }}>
           <p className="mincho" style={{ textAlign: "center", fontSize: 20 }}>おつかれさまでした</p>
+          {!guest && <>
           <label>いまの感じ（自分だけに見えます）</label>
           <div className="chips" style={{ justifyContent: "flex-start" }}>
             {MOODS.map((x) => (
@@ -240,13 +254,15 @@ export default function Timer() {
           <textarea value={change} onChange={(e) => setChange(e.target.value)} maxLength={2000} style={{ minHeight: 90 }} placeholder="例：始める前はイライラしていたけど、終わったら少し落ち着いた" />
           <label>ひとこと（みんなに表示されます・なくてもOK）</label>
           <input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} placeholder="例：今日は呼吸がゆっくりになった" />
+          </>}
           <div className="spacer" />
           <button className="btn gold" style={{ width: "100%" }} onClick={() => save(doneMin)}>記録する（{doneMin}分）</button>
         </div>
       )}
       {saved && (
         <>
-          <p className="ok">記録しました。今日もできましたね。</p>
+          <p className="ok">{guest ? "この端末に記録しました。今日もできましたね。" : "記録しました。今日もできましたね。"}</p>
+          {guest && <p className="muted" style={{ fontSize: 13 }}>記録をずっと残して、竜を育てるなら <a href="/join-free">無料登録（名前とメールだけ）</a></p>}
           <button className="btn ghost small" onClick={() => pick(len)}>もう一度</button>
         </>
       )}

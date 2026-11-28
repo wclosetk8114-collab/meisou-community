@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { IHome, IMed, IBook, IMoon, IAsk, IMore } from "@/components/Icons";
-import { requireMember } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +9,7 @@ const NAV = [["/app/meditate", "瞑想"], ["/app/together", "一緒に"], ["/app
   ["/app/live", "思想講座"], ["/app/course", "動画講座"], ["/app/qa", "質問"]];
 
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
-  const m = await requireMember();
+  const m = await requireUser();
   return (
     <>
       <header className="hdr">
